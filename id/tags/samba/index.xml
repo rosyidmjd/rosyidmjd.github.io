@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Samba on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/id/tags/samba/</link>
+    <description>Recent content in Samba on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>id-ID</language>
+    <lastBuildDate>Mon, 26 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/id/tags/samba/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</title>
+      <link>https://rosyidmjd.my.id/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/</link>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/</guid>
+      <description>Panduan lengkap konfigurasi Samba file server di Linux</description>
+    </item>
+    <item>
+      <title>Penjelasan Lengkap Konfigurasi Samba: Sintaks smb.conf</title>
+      <link>https://rosyidmjd.my.id/id/blog/samba-syntax/</link>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/samba-syntax/</guid>
+      <description>Panduan lengkap sintaks smb.conf Samba, mencakup konfigurasi global, permission share, keamanan, user, grup, dan optimasi performa.</description>
+    </item>
+  </channel>
+</rss>

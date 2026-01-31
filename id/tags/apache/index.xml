@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apache on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/id/tags/apache/</link>
+    <description>Recent content in Apache on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>id-ID</language>
+    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/id/tags/apache/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cara Install Apache2 di Debian 12</title>
+      <link>https://rosyidmjd.my.id/id/blog/cara-install-apache2-di-debian/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/cara-install-apache2-di-debian/</guid>
+      <description>Panduan detail instalasi Apache2 di Debian 12, mencakup struktur direktori, VirtualHost, modul rewrite, dan konfigurasi HTTPS.</description>
+    </item>
+    <item>
+      <title>Konfigurasi Apache Reverse Proxy di Debian 12</title>
+      <link>https://rosyidmjd.my.id/id/blog/konfigurasi-http-reverse-proxy-apache2/</link>
+      <pubDate>Sun, 18 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/konfigurasi-http-reverse-proxy-apache2/</guid>
+      <description>Panduan lengkap konfigurasi HTTP Reverse Proxy Apache2 Server</description>
+    </item>
+  </channel>
+</rss>

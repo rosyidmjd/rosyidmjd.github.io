@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Networking, Infrastructure on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/id/categories/networking-infrastructure/</link>
+    <description>Recent content in Networking, Infrastructure on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>id-ID</language>
+    <lastBuildDate>Fri, 09 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/id/categories/networking-infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/</guid>
+      <description>Implementasi jaringan PTP FO yang menghubungkan Server di Gedung Timur dengan Ruang Staff di Gedung Barat Balai Pelatihan Kesehatan Yogyakarta, dilengkapi HTB, Box Panel, dan Switch untuk perangkat kabel dan nirkabel.</description>
+    </item>
+    <item>
+      <title>Survey Infrastruktur Jaringan Kalola Coffeeshop Perumnas Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/network-infrastructure-survey-kalola-coffeeshop/</link>
+      <pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/network-infrastructure-survey-kalola-coffeeshop/</guid>
+      <description>Melakukan survey jaringan secara menyeluruh di Kalola Coffeeshop, mencakup analisis jalur kabel, perencanaan kebutuhan perangkat, dan desain penempatan access point.</description>
+    </item>
+  </channel>
+</rss>

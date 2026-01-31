@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+
+
+<title>
+  
+    Cara Install Apache2 di Debian 12 | Rosyid Majid
+  
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  
+
+<meta name="description" content="Panduan lengkap instalasi dan konfigurasi Apache2 di Debian 12, membuat VirtualHost, serta mengamankan website dengan HTTPS menggunakan Let’s Encrypt. Cocok untuk web server, PHP site, dan jaringan internal.">
+
+
+
+
+  
+
+
+<meta name="keywords" content="apache2 apache2.conf, apache2 configuration, linux web server, apache2 server linux">
+
+
+
+<meta name="author" content="Rosyid Majid">
+
+
+<link rel="canonical" href="https://rosyidmjd.my.id/id/blog/cara-install-apache2-di-debian/">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cara Install Apache2 di Debian 12">
+<meta property="og:description" content="Panduan lengkap instalasi dan konfigurasi Apache2 di Debian 12, membuat VirtualHost, serta mengamankan website dengan HTTPS menggunakan Let’s Encrypt. Cocok untuk web server, PHP site, dan jaringan internal.">
+<meta property="og:url" content="https://rosyidmjd.my.id/id/blog/cara-install-apache2-di-debian/">
+<meta property="og:site_name" content="Rosyid Majid">
+<meta property="og:locale" content="id_ID">
+
+
+
+
+  
+
+
+<meta property="og:image" content="https://rosyidmjd.my.id/how-to-install-apache2-on-debian.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cara Install Apache2 di Debian 12">
+<meta name="twitter:description" content="Panduan lengkap instalasi dan konfigurasi Apache2 di Debian 12, membuat VirtualHost, serta mengamankan website dengan HTTPS menggunakan Let’s Encrypt. Cocok untuk web server, PHP site, dan jaringan internal.">
+
+<meta name="twitter:image" content="https://rosyidmjd.my.id/how-to-install-apache2-on-debian.jpg">
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.css">
+   
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+    
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/id/">
+      <span>R</span>osyid Majid
+    </a>
+
+    <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
+      type="button"
+      data-toggle="collapse"
+      data-target="#ftco-nav">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav nav ml-auto">
+
+        <li class="nav-item">
+          <a href="/id/#home-section" class="nav-link">
+            <span>Beranda</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#about-section" class="nav-link">
+            <span>Tentang</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#resume-section" class="nav-link">
+            <span>Resume</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#projects-section" class="nav-link">
+            <span>Proyek</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/blog/" class="nav-link">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/tools/" class="nav-link">
+            <span>Tools</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#contact-section" class="nav-link">
+            <span>Kontak</span>
+          </a>
+        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+    <a class="dropdown-item" href="/id/">
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    </a>
+    <a class="dropdown-item" href="/en/">
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    </a>
+  </div>
+</li>
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="hero-wrap js-fullheight">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+      <div class="col-lg-10 ftco-animate d-flex align-items-center">
+        <div class="text text-center">
+          <h1 class="mb-3 display-4">Cara Install Apache2 di Debian 12</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-lg-8 ftco-animate">
+
+        <div class="d-flex mb-3 text-muted align-items-center">
+          <div class="mr-4">
+            <span class="icon-calendar">
+                20 Jan 2026
+            </span>
+          </div>
+          
+          <div>
+            <span class="icon-user">
+                By Rosyid Majid
+            </span>
+          </div>
+        </div>
+
+        <article class="blog-content">
+          <p><a href="how-to-install-apache2-on-debian.jpg" class="image-popup">
+  <img
+    src="how-to-install-apache2-on-debian.jpg"
+    alt="Cara Install Apache2 di Debian 12"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<p>Apache2 adalah salah satu web server yang paling banyak digunakan di dunia. Apache umum dipakai untuk meng-host website berbasis PHP, HTML, maupun berbagai web framework modern.</p>
+<p>Pada artikel ini, saya akan menjelaskan langkah-langkah <strong>instalasi Apache2 di Debian 12</strong>, membuat <strong>VirtualHost</strong>, serta <strong>mengamankan website menggunakan HTTPS dengan Let’s Encrypt</strong>.</p>
+
+<div class="toc mb-4 p-3 border rounded bg-light">
+  <h4>Table of Contents</h4>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-instalasi-apache2">1. Instalasi Apache2</a></li>
+    <li><a href="#2-struktur-direktori-penting-apache2">2. Struktur Direktori Penting Apache2</a></li>
+    <li><a href="#3-membuat-virtualhost-baru">3. Membuat VirtualHost Baru</a>
+      <ul>
+        <li><a href="#a-membuat-direktori-website">a. Membuat direktori website</a></li>
+        <li><a href="#b-membuat-file-konfigurasi-virtualhost">b. Membuat file konfigurasi VirtualHost</a></li>
+        <li><a href="#4-mengaktifkan-virtualhost">4. Mengaktifkan VirtualHost</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-mengaktifkan-htaccess-opsional">5. Mengaktifkan .htaccess (Opsional)</a>
+      <ul>
+        <li><a href="#6-mengaktifkan-modul-rewrite">6. Mengaktifkan Modul Rewrite</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-mengecek-konfigurasi-apache">7. Mengecek Konfigurasi Apache</a></li>
+    <li><a href="#8-konfigurasi-https-dengan-lets-encrypt">8. Konfigurasi HTTPS dengan Let’s Encrypt</a></li>
+    <li><a href="#penutup">Penutup</a></li>
+  </ul>
+</nav>
+</div>
+
+
+<p>Apache2 adalah salah satu web server yang paling banyak digunakan di dunia. Apache sering digunakan untuk menjalankan website berbasis PHP, HTML, dan berbagai web framework.</p>
+<p>Artikel ini membahas proses instalasi Apache2 di Debian 12, pembuatan VirtualHost, serta konfigurasi HTTPS menggunakan Let’s Encrypt.</p>
+<p>Konfigurasi ini cocok digunakan untuk <strong>lingkungan belajar</strong>, <strong>server internal</strong>, maupun <strong>deployment web production-ready</strong>.</p>
+<h2 id="1-instalasi-apache2" class="mb-3">
+  <a href="#1-instalasi-apache2" class="text-decoration-none text-dark">
+    1. Instalasi Apache2
+  </a>
+</h2>
+
+<p>Langkah pertama adalah melakukan update sistem dan menginstal Apache2:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt upgrade -y
+</span></span><span style="display:flex;"><span>sudo apt install apache2 -y
+</span></span></code></pre></div><p>Setelah instalasi selesai, Apache2 akan berjalan otomatis. Untuk memastikan service Apache aktif, jalankan perintah berikut:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl status apache2
+</span></span></code></pre></div><p>Jika status menunjukkan active (running), maka Apache2 siap dikonfigurasi.</p>
+<h2 id="2-struktur-direktori-penting-apache2" class="mb-3">
+  <a href="#2-struktur-direktori-penting-apache2" class="text-decoration-none text-dark">
+    2. Struktur Direktori Penting Apache2
+  </a>
+</h2>
+
+<p>Memahami struktur direktori Apache sangat penting untuk konfigurasi dan troubleshooting.</p>
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-light">
+      <tr>
+          <th>Path</th>
+          <th>Fungsi</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>/etc/apache2/apache2.conf</code></td>
+          <td>Konfigurasi utama Apache</td>
+      </tr>
+      <tr>
+          <td><code>/etc/apache2/sites-available/</code></td>
+          <td>Folder file VirtualHost</td>
+      </tr>
+      <tr>
+          <td><code>/etc/apache2/sites-enabled/</code></td>
+          <td>Symlink VirtualHost aktif</td>
+      </tr>
+      <tr>
+          <td><code>/var/www/html/</code></td>
+          <td>Document root default</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<h2 id="3-membuat-virtualhost-baru" class="mb-3">
+  <a href="#3-membuat-virtualhost-baru" class="text-decoration-none text-dark">
+    3. Membuat VirtualHost Baru
+  </a>
+</h2>
+
+<p>Pada contoh ini digunakan domain lokal <code>server.lan</code>.</p>
+<h3 id="a-membuat-direktori-website" class="mb-3">
+  <a href="#a-membuat-direktori-website" class="text-decoration-none text-dark">
+    a. Membuat direktori website
+  </a>
+</h3>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /var/www/server.lan
+</span></span><span style="display:flex;"><span>sudo chown -R $USER:$USER /var/www/server.lan
+</span></span></code></pre></div><p>Direktori ini akan menjadi document root untuk website.</p>
+<h3 id="b-membuat-file-konfigurasi-virtualhost" class="mb-3">
+  <a href="#b-membuat-file-konfigurasi-virtualhost" class="text-decoration-none text-dark">
+    b. Membuat file konfigurasi VirtualHost
+  </a>
+</h3>
+
+<p>sudo nano /etc/apache2/sites-available/server.lan.conf
+Isi dengan konfigurasi berikut:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;VirtualHost *:80&gt;
+</span></span><span style="display:flex;"><span>    ServerName server.lan
+</span></span><span style="display:flex;"><span>    ServerAlias www.server.lan
+</span></span><span style="display:flex;"><span>    DocumentRoot /var/www/server.lan
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;Directory /var/www/server.lan&gt;
+</span></span><span style="display:flex;"><span>        Options Indexes FollowSymLinks
+</span></span><span style="display:flex;"><span>        AllowOverride All
+</span></span><span style="display:flex;"><span>        Require all granted
+</span></span><span style="display:flex;"><span>    &lt;/Directory&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ErrorLog <span style="color:#e6db74">${</span>APACHE_LOG_DIR<span style="color:#e6db74">}</span>/server.lan_error.log
+</span></span><span style="display:flex;"><span>    CustomLog <span style="color:#e6db74">${</span>APACHE_LOG_DIR<span style="color:#e6db74">}</span>/server.lan_access.log combined
+</span></span><span style="display:flex;"><span>&lt;/VirtualHost&gt;
+</span></span></code></pre></div><p>Konfigurasi ini mendefinisikan domain, document root, permission akses, serta file log untuk VirtualHost.</p>
+<h3 id="4-mengaktifkan-virtualhost" class="mb-3">
+  <a href="#4-mengaktifkan-virtualhost" class="text-decoration-none text-dark">
+    4. Mengaktifkan VirtualHost
+  </a>
+</h3>
+
+<p>Untuk mengaktifkan VirtualHost yang telah dibuat:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo a2ensite server.lan.conf
+</span></span><span style="display:flex;"><span>sudo systemctl reload apache2
+</span></span></code></pre></div><p>Setelah itu, Apache akan mulai melayani konten dari direktori <code>/var/www/server.lan</code>.</p>
+<h2 id="5-mengaktifkan-htaccess-opsional" class="mb-3">
+  <a href="#5-mengaktifkan-htaccess-opsional" class="text-decoration-none text-dark">
+    5. Mengaktifkan .htaccess (Opsional)
+  </a>
+</h2>
+
+<p>Jika ingin menggunakan <code>.htaccess</code> (misalnya untuk WordPress, Laravel, atau URL rewrite), pastikan <code>&lt;Directory&gt;</code> berikut aktif:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>AllowOverride All
+</span></span></code></pre></div><h3 id="6-mengaktifkan-modul-rewrite" class="mb-3">
+  <a href="#6-mengaktifkan-modul-rewrite" class="text-decoration-none text-dark">
+    6. Mengaktifkan Modul Rewrite
+  </a>
+</h3>
+
+<p>Modul reAllowOverride Allwrite diperlukan untuk URL clean dan <code>.htaccess</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo a2enmod rewrite
+</span></span><span style="display:flex;"><span>sudo systemctl restart apache2
+</span></span></code></pre></div><h2 id="7-mengecek-konfigurasi-apache" class="mb-3">
+  <a href="#7-mengecek-konfigurasi-apache" class="text-decoration-none text-dark">
+    7. Mengecek Konfigurasi Apache
+  </a>
+</h2>
+
+<p>Sebelum melanjutkan ke HTTPS, lakukan pengecekan konfigurasi:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apache2ctl configtest
+</span></span></code></pre></div><p>Jika output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Syntax OK
+</span></span></code></pre></div><p>maka konfigurasi Apache valid dan aman digunakan.</p>
+<h2 id="8-konfigurasi-https-dengan-lets-encrypt" class="mb-3">
+  <a href="#8-konfigurasi-https-dengan-lets-encrypt" class="text-decoration-none text-dark">
+    8. Konfigurasi HTTPS dengan Let’s Encrypt
+  </a>
+</h2>
+
+<p>Untuk mengamankan website menggunakan SSL gratis dari Let’s Encrypt:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install certbot python3-certbot-apache -y
+</span></span><span style="display:flex;"><span>sudo certbot --apache
+</span></span></code></pre></div><p>Ikuti instruksi yang muncul di layar untuk mengaktifkan HTTPS pada domain Anda.</p>
+<h2 id="penutup" class="mb-3">
+  <a href="#penutup" class="text-decoration-none text-dark">
+    Penutup
+  </a>
+</h2>
+
+<p>Selamat Anda telah berhasil:</p>
+<ul>
+<li>Menginstal Apache2 di Debian 12</li>
+<li>Membuat dan mengaktifkan VirtualHost</li>
+<li>Mengaktifkan modul rewrite</li>
+<li>Mengamankan website dengan HTTPS menggunakan Let’s Encrypt</li>
+</ul>
+<p>Apache2 adalah web server yang fleksibel dan powerful. Dengan memahami dasar-dasar ini, Anda siap membangun web server profesional untuk PHP, WordPress, Laravel, maupun aplikasi web lainnya.</p>
+
+        </article>
+
+
+<div class="tag-widget post-tag-container mb-5 mt-5">
+  <div class="tagcloud">
+    
+      <a href="/tags/linux/" class="tag-cloud-link">Linux</a>
+    
+      <a href="/tags/server/" class="tag-cloud-link">Server</a>
+    
+      <a href="/tags/sysadmin/" class="tag-cloud-link">Sysadmin</a>
+    
+      <a href="/tags/apache/" class="tag-cloud-link">Apache</a>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      
+      <div class="col-lg-4 sidebar ftco-animate">
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Recent Blog</h3>
+          
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/samba-file-server-on-linux-secure-file-sharing.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/samba-syntax/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/samba-syntax/samba-configuration-explained-syntax.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/samba-syntax/">Penjelasan Lengkap Konfigurasi Samba: Sintaks smb.conf</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">MikroTik Policy Based Routing: Memisahkan Traffic Internet</a>
+      </h3>
+      <div class="meta">
+        <span>23 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/cara-install-apache2-di-debian/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/cara-install-apache2-di-debian/how-to-install-apache2-on-debian.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/cara-install-apache2-di-debian/">Cara Install Apache2 di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>20 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-http-reverse-proxy-apache2/reverse-proxy-apache2.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">Konfigurasi Apache Reverse Proxy di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>18 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+
+        </div>
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Tag</h3>
+          <div class="tagcloud">
+            
+              <a href="/id/tags/apache/" class="tag-cloud-link">
+                Apache
+              </a>
+            
+              <a href="/id/tags/event/" class="tag-cloud-link">
+                Event
+              </a>
+            
+              <a href="/id/tags/fiber-optic/" class="tag-cloud-link">
+                Fiber-Optic
+              </a>
+            
+              <a href="/id/tags/linux/" class="tag-cloud-link">
+                Linux
+              </a>
+            
+              <a href="/id/tags/mikrotik/" class="tag-cloud-link">
+                Mikrotik
+              </a>
+            
+              <a href="/id/tags/networking/" class="tag-cloud-link">
+                Networking
+              </a>
+            
+              <a href="/id/tags/pbr-mikrotik/" class="tag-cloud-link">
+                PBR-MikroTik
+              </a>
+            
+              <a href="/id/tags/project/" class="tag-cloud-link">
+                Project
+              </a>
+            
+              <a href="/id/tags/reverse_proxy/" class="tag-cloud-link">
+                Reverse_Proxy
+              </a>
+            
+              <a href="/id/tags/routing/" class="tag-cloud-link">
+                Routing
+              </a>
+            
+              <a href="/id/tags/ruijie/" class="tag-cloud-link">
+                Ruijie
+              </a>
+            
+              <a href="/id/tags/samba/" class="tag-cloud-link">
+                Samba
+              </a>
+            
+              <a href="/id/tags/server/" class="tag-cloud-link">
+                Server
+              </a>
+            
+              <a href="/id/tags/smb/" class="tag-cloud-link">
+                SMB
+              </a>
+            
+              <a href="/id/tags/survey/" class="tag-cloud-link">
+                Survey
+              </a>
+            
+              <a href="/id/tags/sysadmin/" class="tag-cloud-link">
+                Sysadmin
+              </a>
+            
+              <a href="/id/tags/wireless/" class="tag-cloud-link">
+                Wireless
+              </a>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="ftco-footer ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Tentang Saya</h2>
+          <p>IT Networking Support &amp; Junior NOC Engineer dengan pengalaman langsung dalam deployment infrastruktur dan operasional sistem.</p>
+
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+            <li class="ftco-animate">
+              <a href="https://www.facebook.com/people/Rosyid-Majid/pfbid02YVNFBmRDRqeQAToVZ3nGJZxNoMBiQr6fo16VAc6eqAh7tLM9gwhRgQbutjvfQdf9l/">
+                <span class="fa-brands fa-facebook-f"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.instagram.com/rosyidmajid45/">
+                <span class="fa-brands fa-instagram"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.linkedin.com/in/rosyid-majid-678833198">
+                <span class="fa-brands fa-linkedin-in"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="/id/#home-section">
+                <span class="icon-long-arrow-right mr-2"></span>Beranda
+              </a>
+            </li>
+            <li>
+              <a href="/id/#about-section">
+                <span class="icon-long-arrow-right mr-2"></span>Tentang
+              </a>
+            </li>
+            <li>
+              <a href="/id/#projects-section">
+                <span class="icon-long-arrow-right mr-2"></span>Proyek
+              </a>
+            </li>
+            <li>
+              <a href="/id/blog/">
+                <span class="icon-long-arrow-right mr-2"></span>Blog
+              </a>
+            </li>
+            <li>
+              <a href="/id/tools/">
+                <span class="icon-long-arrow-right mr-2"></span>Tools
+              </a>
+            </li>
+            <li>
+              <a href="/id/#contact-section">
+                <span class="icon-long-arrow-right mr-2"></span>Kontak
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li>
+                <span class="icon icon-map-marker"></span>
+                <span class="text">Wonosobo, Jawa Tengah, Indonesia</span>
+              </li>
+              <li>
+                <a href="tel:+6282231185610">
+                  <span class="icon icon-phone"></span>
+                  <span class="text">+62 822-3118-5610</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rosyidmjd@gmail.com">
+                  <span class="icon icon-envelope"></span>
+                  <span class="text">rosyidmjd@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          © <script>document.write(new Date().getFullYear());</script>
+          Rosyid Majid · All rights reserved<br>
+          IT Networking Support &amp; Junior NOC Engineer
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+  
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux Server, Sysadmin on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/en/categories/linux-server-sysadmin/</link>
+    <description>Recent content in Linux Server, Sysadmin on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 26 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/en/categories/linux-server-sysadmin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Samba Configuration Explained: Complete smb.conf Syntax</title>
+      <link>https://rosyidmjd.my.id/en/blog/samba-syntax/</link>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/samba-syntax/</guid>
+      <description>Detailed guide to Samba smb.conf syntax, explaining global configuration, share permissions, security, users, groups, and performance tuning.</description>
+    </item>
+    <item>
+      <title>Samba Server on Linux: Secure File Sharing</title>
+      <link>https://rosyidmjd.my.id/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/</link>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/</guid>
+      <description>Detailed guide to configuration Samba file server</description>
+    </item>
+    <item>
+      <title>How to Install Apache2 on Debian 12</title>
+      <link>https://rosyidmjd.my.id/en/blog/install-apache2/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/install-apache2/</guid>
+      <description>Detailed guide to Samba smb.conf syntax, explaining global configuration, share permissions, security, users, groups, and performance tuning.</description>
+    </item>
+    <item>
+      <title>Apache Reverse Proxy Configuration on Debian 12</title>
+      <link>https://rosyidmjd.my.id/en/blog/konfigurasi-http-reverse-proxy-apache2/</link>
+      <pubDate>Sun, 18 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/konfigurasi-http-reverse-proxy-apache2/</guid>
+      <description>Detailed guide to configuration HTTP Reverse Proxy Apache2 Server</description>
+    </item>
+  </channel>
+</rss>

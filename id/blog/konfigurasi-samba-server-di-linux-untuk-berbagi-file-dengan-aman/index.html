@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+
+
+<title>
+  
+    Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman | Rosyid Majid
+  
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  
+
+<meta name="description" content="Panduan konfigurasi Samba Server di Linux untuk berbagi file secara aman dengan klien Windows dan Linux. Mencakup manajemen user, permission, dan troubleshooting.">
+
+
+
+
+  
+
+
+<meta name="keywords" content="samba smb.conf, konfigurasi samba, linux file server, smb cifs, samba server linux">
+
+
+
+<meta name="author" content="Rosyid Majid">
+
+
+<link rel="canonical" href="https://rosyidmjd.my.id/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman">
+<meta property="og:description" content="Panduan konfigurasi Samba Server di Linux untuk berbagi file secara aman dengan klien Windows dan Linux. Mencakup manajemen user, permission, dan troubleshooting.">
+<meta property="og:url" content="https://rosyidmjd.my.id/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+<meta property="og:site_name" content="Rosyid Majid">
+<meta property="og:locale" content="id_ID">
+
+
+
+
+  
+
+
+<meta property="og:image" content="https://rosyidmjd.my.id/samba-file-server-on-linux-secure-file-sharing.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman">
+<meta name="twitter:description" content="Panduan konfigurasi Samba Server di Linux untuk berbagi file secara aman dengan klien Windows dan Linux. Mencakup manajemen user, permission, dan troubleshooting.">
+
+<meta name="twitter:image" content="https://rosyidmjd.my.id/samba-file-server-on-linux-secure-file-sharing.jpg">
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.css">
+   
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+    
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/id/">
+      <span>R</span>osyid Majid
+    </a>
+
+    <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
+      type="button"
+      data-toggle="collapse"
+      data-target="#ftco-nav">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav nav ml-auto">
+
+        <li class="nav-item">
+          <a href="/id/#home-section" class="nav-link">
+            <span>Beranda</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#about-section" class="nav-link">
+            <span>Tentang</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#resume-section" class="nav-link">
+            <span>Resume</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#projects-section" class="nav-link">
+            <span>Proyek</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/blog/" class="nav-link">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/tools/" class="nav-link">
+            <span>Tools</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#contact-section" class="nav-link">
+            <span>Kontak</span>
+          </a>
+        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+    <a class="dropdown-item" href="/id/">
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    </a>
+    <a class="dropdown-item" href="/en/">
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    </a>
+  </div>
+</li>
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="hero-wrap js-fullheight">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+      <div class="col-lg-10 ftco-animate d-flex align-items-center">
+        <div class="text text-center">
+          <h1 class="mb-3 display-4">Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-lg-8 ftco-animate">
+
+        <div class="d-flex mb-3 text-muted align-items-center">
+          <div class="mr-4">
+            <span class="icon-calendar">
+                26 Jan 2026
+            </span>
+          </div>
+          
+          <div>
+            <span class="icon-user">
+                By Rosyid Majid
+            </span>
+          </div>
+        </div>
+
+        <article class="blog-content">
+          <p><a href="samba-file-server-on-linux-secure-file-sharing.jpg" class="image-popup">
+  <img
+    src="samba-file-server-on-linux-secure-file-sharing.jpg"
+    alt="Samba file server on linux secure file sharing"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<p><strong>Samba</strong> adalah implementasi <strong>open-source</strong> dari protokol <strong>SMB/CIFS</strong> yang memungkinkan berbagi file antara server Linux dengan klien Windows, Linux, maupun macOS.</p>
+<p>Artikel ini tidak hanya membahas <strong>cara konfigurasi Samba</strong>, tetapi juga <strong>fungsi dari setiap perintah dan directive konfigurasi</strong>, sehingga cocok untuk pemula maupun system administrator.</p>
+
+<div class="toc mb-4 p-3 border rounded bg-light">
+  <h4>Table of Contents</h4>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-instalasi-samba">1. Instalasi Samba</a></li>
+    <li><a href="#2-membuat-direktori-share">2. Membuat Direktori Share</a></li>
+    <li><a href="#3-konfigurasi-samba">3. Konfigurasi Samba</a></li>
+    <li><a href="#4-membuat-user-samba">4. Membuat User Samba</a></li>
+    <li><a href="#5-restart-dan-enable-service-samba">5. Restart dan Enable Service Samba</a></li>
+    <li><a href="#6-validasi-konfigurasi">6. Validasi Konfigurasi</a></li>
+    <li><a href="#7-akses-share-dari-windows">7. Akses Share dari Windows</a></li>
+    <li><a href="#8-akses-share-dari-linux">8. Akses Share dari Linux</a></li>
+    <li><a href="#9-mengatasi-masalah-permission">9. Mengatasi Masalah Permission</a></li>
+    <li><a href="#10-perintah-troubleshooting">10. Perintah Troubleshooting</a></li>
+    <li><a href="#best-practices">Best Practices</a></li>
+    <li><a href="#kesimpulan">Kesimpulan</a></li>
+  </ul>
+</nav>
+</div>
+
+
+<h2 id="1-instalasi-samba" class="mb-3">
+  <a href="#1-instalasi-samba" class="text-decoration-none text-dark">
+    1. Instalasi Samba
+  </a>
+</h2>
+
+<p>Pertama, perbarui repository dan install paket Samba yang dibutuhkan:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install samba samba-common
+</span></span></code></pre></div><ul>
+<li>samba: menginstal service utama Samba (smbd, nmbd)</li>
+<li>samba-common: menyediakan file konfigurasi dan utilitas bersama</li>
+</ul>
+<p>Verifikasi instalasi Samba:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbd --version
+</span></span></code></pre></div><ul>
+<li>Memastikan Samba daemon terpasang dengan benar</li>
+<li>Menampilkan versi Samba yang terinstal</li>
+</ul>
+<h2 id="2-membuat-direktori-share" class="mb-3">
+  <a href="#2-membuat-direktori-share" class="text-decoration-none text-dark">
+    2. Membuat Direktori Share
+  </a>
+</h2>
+
+<p>Buat direktori khusus untuk file sharing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /srv/share
+</span></span></code></pre></div><ul>
+<li>Membuat direktori /srv/share</li>
+<li>Opsi -p memastikan direktori parent ikut dibuat jika belum ada</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown -R $USER:$USER /srv/share
+</span></span></code></pre></div><ul>
+<li>Mengubah kepemilikan direktori ke user saat ini</li>
+<li><code>-R</code> berlaku secara rekursif</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">775</span> /srv/share
+</span></span></code></pre></div><ul>
+<li>Mengatur permission:
+<ul>
+<li>Owner &amp; group: read, write, execute</li>
+<li>Others: read &amp; execute</li>
+</ul>
+</li>
+<li>Diperlukan agar user Samba bisa mengakses direktori</li>
+</ul>
+<p><strong>Catatan:</strong> /srv direkomendasikan untuk data layanan sesuai standar filesystem Linux.</p>
+<h2 id="3-konfigurasi-samba" class="mb-3">
+  <a href="#3-konfigurasi-samba" class="text-decoration-none text-dark">
+    3. Konfigurasi Samba
+  </a>
+</h2>
+
+<p>Edit file konfigurasi utama Samba:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/samba/smb.conf
+</span></span></code></pre></div><ul>
+<li>Membuka file konfigurasi utama Samba</li>
+<li>Semua aturan akses dan share didefinisikan di sini</li>
+</ul>
+<p>Tambahkan konfigurasi berikut di bagian bawah file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Share-Umum<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>   comment <span style="color:#f92672">=</span> Public Shared Folder
+</span></span><span style="display:flex;"><span>   path <span style="color:#f92672">=</span> /srv/share
+</span></span><span style="display:flex;"><span>   browseable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>   read only <span style="color:#f92672">=</span> no
+</span></span><span style="display:flex;"><span>   writable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>   create mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0664</span>
+</span></span><span style="display:flex;"><span>   directory mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0775</span>
+</span></span><span style="display:flex;"><span>   valid users <span style="color:#f92672">=</span> @samba
+</span></span></code></pre></div><p>Penjelasan Konfigurasi Share</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Share-Umum<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Nama share yang akan muncul di client</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>comment <span style="color:#f92672">=</span> Public Shared Folder
+</span></span></code></pre></div><ul>
+<li>Deskripsi opsional untuk mempermudah identifikasi share</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>path <span style="color:#f92672">=</span> /srv/share
+</span></span></code></pre></div><ul>
+<li>Lokasi direktori di filesystem Linux</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>browseable <span style="color:#f92672">=</span> yes
+</span></span></code></pre></div><ul>
+<li>Share akan terlihat saat client melakukan browsing</li>
+<li>Jika <code>no</code>, harus diakses manual</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>read only <span style="color:#f92672">=</span> no
+</span></span></code></pre></div><ul>
+<li>Mengizinkan akses tulis ke share</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>writable <span style="color:#f92672">=</span> yes
+</span></span></code></pre></div><ul>
+<li>Memastikan share bisa ditulis</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>create mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0664</span>
+</span></span></code></pre></div><ul>
+<li>Permission default untuk file baru</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>directory mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0775</span>
+</span></span></code></pre></div><ul>
+<li>Permission default untuk direktori baru</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>valid users <span style="color:#f92672">=</span> @samba
+</span></span></code></pre></div><ul>
+<li>Membatasi akses hanya untuk user dalam grup samba</li>
+<li>Meningkatkan keamanan</li>
+</ul>
+<h2 id="4-membuat-user-samba" class="mb-3">
+  <a href="#4-membuat-user-samba" class="text-decoration-none text-dark">
+    4. Membuat User Samba
+  </a>
+</h2>
+
+<p>Autentikasi Samba berbasis user Linux dengan password terpisah.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo adduser username
+</span></span></code></pre></div><ul>
+<li>Membuat user Linux</li>
+</ul>
+<pre tabindex="0"><code class="language-basg" data-lang="basg">sudo groupadd samba
+</code></pre><ul>
+<li>Membuat grup khusus Samba</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG samba username
+</span></span></code></pre></div><ul>
+<li>Menambahkan user ke grup Samba</li>
+<li><code>-aG</code> menjaga grup lain tetap ada</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbpasswd -a username
+</span></span></code></pre></div><ul>
+<li>Membuat password Samba</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbpasswd -e username
+</span></span></code></pre></div><ul>
+<li>Mengaktifkan akun Samba</li>
+</ul>
+<h2 id="5-restart-dan-enable-service-samba" class="mb-3">
+  <a href="#5-restart-dan-enable-service-samba" class="text-decoration-none text-dark">
+    5. Restart dan Enable Service Samba
+  </a>
+</h2>
+
+<ul>
+<li>Terapkan konfigurasi dengan restart service:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl restart smbd nmbd
+</span></span></code></pre></div><ul>
+<li><code>smbd</code>: file sharing &amp; autentikasi</li>
+<li><code>nmbd</code>: NetBIOS name resolution</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable smbd nmbd
+</span></span></code></pre></div><ul>
+<li>Menjalankan Samba otomatis saat boot</li>
+</ul>
+<h2 id="6-validasi-konfigurasi" class="mb-3">
+  <a href="#6-validasi-konfigurasi" class="text-decoration-none text-dark">
+    6. Validasi Konfigurasi
+  </a>
+</h2>
+
+<p>Cek <a href="/id/blog/samba-syntax/">sintaks</a> konfigurasi Samba:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>testparm
+</span></span></code></pre></div><ul>
+<li>Mengecek error konfigurasi</li>
+<li>Menampilkan konfigurasi aktif</li>
+</ul>
+<h2 id="7-akses-share-dari-windows" class="mb-3">
+  <a href="#7-akses-share-dari-windows" class="text-decoration-none text-dark">
+    7. Akses Share dari Windows
+  </a>
+</h2>
+
+<p>Buka File Explorer dan akses:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">\\</span>IP_Server
+</span></span></code></pre></div><p>atau langsung:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">\\</span>IP_Server<span style="color:#ae81ff">\S</span>hare-Umum
+</span></span></code></pre></div><ul>
+<li>Akan muncul prompt login user Samba</li>
+</ul>
+<h2 id="8-akses-share-dari-linux" class="mb-3">
+  <a href="#8-akses-share-dari-linux" class="text-decoration-none text-dark">
+    8. Akses Share dari Linux
+  </a>
+</h2>
+
+<p><strong>Mount Manual</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mount -t cifs //IP_Server/Share-Umum /mnt/smb -o username<span style="color:#f92672">=</span>username
+</span></span></code></pre></div><p><strong>Mount Permanen</strong> (<code>/etc/fstab</code>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># SMB Mount</span>
+</span></span><span style="display:flex;"><span>//IP_Server/Share-Umum  /mnt/smb  cifs  username<span style="color:#f92672">=</span>username,password<span style="color:#f92672">=</span>YOUR_PASSWORD,iocharset<span style="color:#f92672">=</span>utf8,vers<span style="color:#f92672">=</span>3.0  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><ul>
+<li><code>vers=3.0</code> menggunakan SMB modern</li>
+<li><code>iocharset=utf8</code> mencegah masalah encoding</li>
+</ul>
+<h2 id="9-mengatasi-masalah-permission" class="mb-3">
+  <a href="#9-mengatasi-masalah-permission" class="text-decoration-none text-dark">
+    9. Mengatasi Masalah Permission
+  </a>
+</h2>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">0775</span> /srv/share
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown -R :samba /srv/share
+</span></span></code></pre></div><ul>
+<li>Menyamakan permission filesystem dengan aturan Samba</li>
+</ul>
+<h2 id="10-perintah-troubleshooting" class="mb-3">
+  <a href="#10-perintah-troubleshooting" class="text-decoration-none text-dark">
+    10. Perintah Troubleshooting
+  </a>
+</h2>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl status smbd
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo netstat -tulnp | grep smb
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbclient -L localhost -U username
+</span></span></code></pre></div><h2 id="best-practices" class="mb-3">
+  <a href="#best-practices" class="text-decoration-none text-dark">
+    Best Practices
+  </a>
+</h2>
+
+<ul>
+<li>Nonaktifkan SMB1 (tidak aman)</li>
+<li>Gunakan SMB2 atau SMB3</li>
+<li>Selalu selaraskan permission Linux &amp; Samba</li>
+<li>Hindari data sinkron intensif di SMB</li>
+</ul>
+<h2 id="kesimpulan" class="mb-3">
+  <a href="#kesimpulan" class="text-decoration-none text-dark">
+    Kesimpulan
+  </a>
+</h2>
+
+<p>Dengan memahami setiap perintah dan konfigurasi, masalah umum Samba seperti permission dan autentikasi dapat dihindari.
+Dengan konfigurasi yang tepat, Samba tetap menjadi solusi file sharing yang stabil dan aman di lingkungan Linux.</p>
+
+        </article>
+
+
+<div class="tag-widget post-tag-container mb-5 mt-5">
+  <div class="tagcloud">
+    
+      <a href="/tags/linux/" class="tag-cloud-link">Linux</a>
+    
+      <a href="/tags/server/" class="tag-cloud-link">Server</a>
+    
+      <a href="/tags/samba/" class="tag-cloud-link">Samba</a>
+    
+      <a href="/tags/smb/" class="tag-cloud-link">SMB</a>
+    
+      <a href="/tags/sysadmin/" class="tag-cloud-link">Sysadmin</a>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      
+      <div class="col-lg-4 sidebar ftco-animate">
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Recent Blog</h3>
+          
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/samba-file-server-on-linux-secure-file-sharing.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/samba-syntax/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/samba-syntax/samba-configuration-explained-syntax.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/samba-syntax/">Penjelasan Lengkap Konfigurasi Samba: Sintaks smb.conf</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">MikroTik Policy Based Routing: Memisahkan Traffic Internet</a>
+      </h3>
+      <div class="meta">
+        <span>23 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/cara-install-apache2-di-debian/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/cara-install-apache2-di-debian/how-to-install-apache2-on-debian.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/cara-install-apache2-di-debian/">Cara Install Apache2 di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>20 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-http-reverse-proxy-apache2/reverse-proxy-apache2.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">Konfigurasi Apache Reverse Proxy di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>18 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+
+        </div>
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Tag</h3>
+          <div class="tagcloud">
+            
+              <a href="/id/tags/apache/" class="tag-cloud-link">
+                Apache
+              </a>
+            
+              <a href="/id/tags/event/" class="tag-cloud-link">
+                Event
+              </a>
+            
+              <a href="/id/tags/fiber-optic/" class="tag-cloud-link">
+                Fiber-Optic
+              </a>
+            
+              <a href="/id/tags/linux/" class="tag-cloud-link">
+                Linux
+              </a>
+            
+              <a href="/id/tags/mikrotik/" class="tag-cloud-link">
+                Mikrotik
+              </a>
+            
+              <a href="/id/tags/networking/" class="tag-cloud-link">
+                Networking
+              </a>
+            
+              <a href="/id/tags/pbr-mikrotik/" class="tag-cloud-link">
+                PBR-MikroTik
+              </a>
+            
+              <a href="/id/tags/project/" class="tag-cloud-link">
+                Project
+              </a>
+            
+              <a href="/id/tags/reverse_proxy/" class="tag-cloud-link">
+                Reverse_Proxy
+              </a>
+            
+              <a href="/id/tags/routing/" class="tag-cloud-link">
+                Routing
+              </a>
+            
+              <a href="/id/tags/ruijie/" class="tag-cloud-link">
+                Ruijie
+              </a>
+            
+              <a href="/id/tags/samba/" class="tag-cloud-link">
+                Samba
+              </a>
+            
+              <a href="/id/tags/server/" class="tag-cloud-link">
+                Server
+              </a>
+            
+              <a href="/id/tags/smb/" class="tag-cloud-link">
+                SMB
+              </a>
+            
+              <a href="/id/tags/survey/" class="tag-cloud-link">
+                Survey
+              </a>
+            
+              <a href="/id/tags/sysadmin/" class="tag-cloud-link">
+                Sysadmin
+              </a>
+            
+              <a href="/id/tags/wireless/" class="tag-cloud-link">
+                Wireless
+              </a>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="ftco-footer ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Tentang Saya</h2>
+          <p>IT Networking Support &amp; Junior NOC Engineer dengan pengalaman langsung dalam deployment infrastruktur dan operasional sistem.</p>
+
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+            <li class="ftco-animate">
+              <a href="https://www.facebook.com/people/Rosyid-Majid/pfbid02YVNFBmRDRqeQAToVZ3nGJZxNoMBiQr6fo16VAc6eqAh7tLM9gwhRgQbutjvfQdf9l/">
+                <span class="fa-brands fa-facebook-f"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.instagram.com/rosyidmajid45/">
+                <span class="fa-brands fa-instagram"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.linkedin.com/in/rosyid-majid-678833198">
+                <span class="fa-brands fa-linkedin-in"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="/id/#home-section">
+                <span class="icon-long-arrow-right mr-2"></span>Beranda
+              </a>
+            </li>
+            <li>
+              <a href="/id/#about-section">
+                <span class="icon-long-arrow-right mr-2"></span>Tentang
+              </a>
+            </li>
+            <li>
+              <a href="/id/#projects-section">
+                <span class="icon-long-arrow-right mr-2"></span>Proyek
+              </a>
+            </li>
+            <li>
+              <a href="/id/blog/">
+                <span class="icon-long-arrow-right mr-2"></span>Blog
+              </a>
+            </li>
+            <li>
+              <a href="/id/tools/">
+                <span class="icon-long-arrow-right mr-2"></span>Tools
+              </a>
+            </li>
+            <li>
+              <a href="/id/#contact-section">
+                <span class="icon-long-arrow-right mr-2"></span>Kontak
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li>
+                <span class="icon icon-map-marker"></span>
+                <span class="text">Wonosobo, Jawa Tengah, Indonesia</span>
+              </li>
+              <li>
+                <a href="tel:+6282231185610">
+                  <span class="icon icon-phone"></span>
+                  <span class="text">+62 822-3118-5610</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rosyidmjd@gmail.com">
+                  <span class="icon icon-envelope"></span>
+                  <span class="text">rosyidmjd@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          © <script>document.write(new Date().getFullYear());</script>
+          Rosyid Majid · All rights reserved<br>
+          IT Networking Support &amp; Junior NOC Engineer
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+  
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infrastructure on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/id/categories/infrastructure/</link>
+    <description>Recent content in Infrastructure on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>id-ID</language>
+    <lastBuildDate>Sat, 10 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/id/categories/infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deployment Access Point di Kost Akanaka Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/deployment-access-point-kost-akanaka-yogyakarta/</link>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/deployment-access-point-kost-akanaka-yogyakarta/</guid>
+      <description>Implementasi jaringan Wi-Fi menggunakan 3 unit Access Point Ruijie RG-AP 2260(G) di Kost Akanaka Yogyakarta dengan manajemen terpusat melalui Ruijie Cloud Controller.</description>
+    </item>
+  </channel>
+</rss>

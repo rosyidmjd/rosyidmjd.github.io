@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+
+
+<title>
+  
+    MikroTik Policy Based Routing: Memisahkan Traffic Internet | Rosyid Majid
+  
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  
+
+<meta name="description" content="Panduan konfigurasi Policy Based Routing (PBR) pada MikroTik untuk memisahkan jalur internet berdasarkan subnet menggunakan dua ISP (ISP A &amp; ISP B) dengan konfigurasi IP statis dan pengujian.">
+
+
+
+
+  
+
+
+<meta name="keywords" content="mikrotik, konfigurasi pbr mikrotik, konfigurasi pbr, konfigurasi mikrotik, konfigurasi policy based routing mikrotik">
+
+
+
+<meta name="author" content="Rosyid Majid">
+
+
+<link rel="canonical" href="https://rosyidmjd.my.id/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="MikroTik Policy Based Routing: Memisahkan Traffic Internet">
+<meta property="og:description" content="Panduan konfigurasi Policy Based Routing (PBR) pada MikroTik untuk memisahkan jalur internet berdasarkan subnet menggunakan dua ISP (ISP A &amp; ISP B) dengan konfigurasi IP statis dan pengujian.">
+<meta property="og:url" content="https://rosyidmjd.my.id/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+<meta property="og:site_name" content="Rosyid Majid">
+<meta property="og:locale" content="id_ID">
+
+
+
+
+  
+
+
+<meta property="og:image" content="https://rosyidmjd.my.id/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MikroTik Policy Based Routing: Memisahkan Traffic Internet">
+<meta name="twitter:description" content="Panduan konfigurasi Policy Based Routing (PBR) pada MikroTik untuk memisahkan jalur internet berdasarkan subnet menggunakan dua ISP (ISP A &amp; ISP B) dengan konfigurasi IP statis dan pengujian.">
+
+<meta name="twitter:image" content="https://rosyidmjd.my.id/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg">
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.css">
+   
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+    
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/id/">
+      <span>R</span>osyid Majid
+    </a>
+
+    <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
+      type="button"
+      data-toggle="collapse"
+      data-target="#ftco-nav">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav nav ml-auto">
+
+        <li class="nav-item">
+          <a href="/id/#home-section" class="nav-link">
+            <span>Beranda</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#about-section" class="nav-link">
+            <span>Tentang</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#resume-section" class="nav-link">
+            <span>Resume</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#projects-section" class="nav-link">
+            <span>Proyek</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/blog/" class="nav-link">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/tools/" class="nav-link">
+            <span>Tools</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#contact-section" class="nav-link">
+            <span>Kontak</span>
+          </a>
+        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+    <a class="dropdown-item" href="/id/">
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    </a>
+    <a class="dropdown-item" href="/en/">
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    </a>
+  </div>
+</li>
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="hero-wrap js-fullheight">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+      <div class="col-lg-10 ftco-animate d-flex align-items-center">
+        <div class="text text-center">
+          <h1 class="mb-3 display-4">MikroTik Policy Based Routing: Memisahkan Traffic Internet</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-lg-8 ftco-animate">
+
+        <div class="d-flex mb-3 text-muted align-items-center">
+          <div class="mr-4">
+            <span class="icon-calendar">
+                23 Jan 2026
+            </span>
+          </div>
+          
+          <div>
+            <span class="icon-user">
+                By Rosyid Majid
+            </span>
+          </div>
+        </div>
+
+        <article class="blog-content">
+          <p><a href="01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg" class="image-popup">
+  <img
+    src="01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg"
+    alt="Mikrotik Policy Based Routing: Memisahkan Traffic Internet"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<p>Pada jaringan dengan lebih dari satu koneksi internet, sering kali dibutuhkan kebijakan routing khusus agar setiap segmen jaringan dapat menggunakan jalur internet yang berbeda.
+Tanpa konfigurasi yang tepat, seluruh traffic biasanya akan mengikuti satu <strong>default route</strong>, sehingga tidak sesuai dengan desain jaringan yang diinginkan.</p>
+<p>Untuk memenuhi kebutuhan tersebut, MikroTik menyediakan fitur yang sangat powerful yaitu <strong>Policy Based Routing (PBR)</strong>.</p>
+
+<div class="toc mb-4 p-3 border rounded bg-light">
+  <h4>Table of Contents</h4>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#studi-kasus--topologi-jaringan">Studi Kasus &amp; Topologi Jaringan</a></li>
+    <li><a href="#alokasi-ip-address">Alokasi IP Address</a></li>
+    <li><a href="#step-1--konfigurasi-ip-address">Step 1 – Konfigurasi IP Address</a></li>
+    <li><a href="#step-2--membuat-routing-table-untuk-masing-masing-isp">Step 2 – Membuat Routing Table untuk Masing-Masing ISP</a></li>
+    <li><a href="#step-3--konfigurasi-nat-masquerade">Step 3 – Konfigurasi NAT (Masquerade)</a></li>
+    <li><a href="#step-4--policy-based-routing-route-rules">Step 4 – Policy Based Routing (Route Rules)</a></li>
+    <li><a href="#step-5--default-route-untuk-router">Step 5 – Default Route untuk Router</a></li>
+    <li><a href="#step-6--pengujian-konfigurasi">Step 6 – Pengujian Konfigurasi</a></li>
+    <li><a href="#kesimpulan">Kesimpulan</a></li>
+  </ul>
+</nav>
+</div>
+
+
+<p>Pada tutorial ini, kita akan mempelajari cara mengimplementasikan <strong>Policy Based Routing</strong> menggunakan <strong>konfigurasi IP statis</strong>, dengan studi kasus sederhana dan praktis yang melibatkan dua koneksi internet, yaitu <strong>ISP A</strong> dan <strong>ISP B</strong>.</p>
+<h2 id="studi-kasus--topologi-jaringan" class="mb-3">
+  <a href="#studi-kasus--topologi-jaringan" class="text-decoration-none text-dark">
+    Studi Kasus &amp; Topologi Jaringan
+  </a>
+</h2>
+
+<p>Pada skenario ini, router MikroTik terhubung ke dua jalur internet yang berbeda:</p>
+<ul>
+<li><strong>ISP A</strong> terhubung ke interface <code>ether1</code></li>
+<li><strong>ISP B</strong> terhubung ke interface <code>ether2</code></li>
+</ul>
+<p>Tujuan konfigurasi:</p>
+<ul>
+<li><strong>LAN 1</strong> berada di interface <code>ether3</code></li>
+<li><strong>LAN 2</strong> berada di interface <code>ether4</code></li>
+<li>Traffic dari <strong>LAN 1</strong> diarahkan melalui <strong>ISP B</strong></li>
+<li>Traffic dari <strong>LAN 2</strong> diarahkan melalui <strong>ISP A</strong></li>
+</ul>
+<p><a href="policy-based-toplogi.jpg" class="image-popup">
+  <img
+    src="policy-based-toplogi.jpg"
+    alt="Contoh Topologi Policy Based Routing"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<p>Konfigurasi ini memungkinkan pemisahan jalur internet berdasarkan <strong>source subnet</strong>, yang umum digunakan pada lab, perkantoran, dan jaringan tersegmentasi.</p>
+<h2 id="alokasi-ip-address" class="mb-3">
+  <a href="#alokasi-ip-address" class="text-decoration-none text-dark">
+    Alokasi IP Address
+  </a>
+</h2>
+
+<p>Sebelum memulai konfigurasi, tentukan skema IP statis yang jelas seperti berikut:</p>
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-light">
+      <tr>
+          <th>Segmen</th>
+          <th>Interface</th>
+          <th>IP Address</th>
+          <th>Gateway</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ISP A</td>
+          <td>ether1</td>
+          <td>192.168.1.2/24</td>
+          <td>192.168.1.1</td>
+      </tr>
+      <tr>
+          <td>ISP B</td>
+          <td>ether2</td>
+          <td>10.10.10.2/24</td>
+          <td>10.10.10.1</td>
+      </tr>
+      <tr>
+          <td>LAN 1</td>
+          <td>ether3</td>
+          <td>172.16.10.1/24</td>
+          <td>–</td>
+      </tr>
+      <tr>
+          <td>LAN 2</td>
+          <td>ether4</td>
+          <td>172.16.20.1/24</td>
+          <td>–</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<p>Penggunaan network dan gateway yang berbeda untuk setiap ISP akan memudahkan proses <strong>routing, monitoring, dan troubleshooting</strong>.</p>
+<h2 id="step-1--konfigurasi-ip-address" class="mb-3">
+  <a href="#step-1--konfigurasi-ip-address" class="text-decoration-none text-dark">
+    Step 1 – Konfigurasi IP Address
+  </a>
+</h2>
+
+<p>Langkah pertama adalah menetapkan IP address pada masing-masing interface sesuai dengan perencanaan IP.</p>
+<p><a href="configuration-ip-address-mikrotik.png" class="image-popup">
+  <img
+    src="configuration-ip-address-mikrotik.png"
+    alt="Konfigurasi IP address MikroTik untuk ISP A, ISP B, dan LAN"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/ip address 
+</span></span><span style="display:flex;"><span>add address<span style="color:#f92672">=</span>192.168.1.2/24 interface<span style="color:#f92672">=</span>ether1 comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ISP-A&#34;</span>
+</span></span><span style="display:flex;"><span>add address<span style="color:#f92672">=</span>10.10.10.2/24 interface<span style="color:#f92672">=</span>ether2 comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ISP-B&#34;</span> 
+</span></span><span style="display:flex;"><span>add address<span style="color:#f92672">=</span>172.16.10.1/24 interface<span style="color:#f92672">=</span>ether3 comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LAN-1&#34;</span>
+</span></span><span style="display:flex;"><span>add address<span style="color:#f92672">=</span>172.16.20.1/24 interface<span style="color:#f92672">=</span>ether4 comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LAN-2&#34;</span>
+</span></span></code></pre></div><p>Pastikan semua interface dalam kondisi <strong>running</strong> sebelum melanjutkan ke tahap berikutnya.
+Verifikasi konfigurasi IP dengan perintah:</p>
+<p><a href="ip-address-print.png" class="image-popup">
+  <img
+    src="ip-address-print.png"
+    alt="Output ip address print MikroTik"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip address print
+</span></span></code></pre></div><h2 id="step-2--membuat-routing-table-untuk-masing-masing-isp" class="mb-3">
+  <a href="#step-2--membuat-routing-table-untuk-masing-masing-isp" class="text-decoration-none text-dark">
+    Step 2 – Membuat Routing Table untuk Masing-Masing ISP
+  </a>
+</h2>
+
+<p>Selanjutnya, buat default route terpisah untuk setiap ISP menggunakan <strong>routing mark</strong>.
+Routing ini nantinya akan dipanggil oleh aturan policy routing.</p>
+<p><a href="mikrotik-routing-table-isp-a-isp-b.png" class="image-popup">
+  <img
+    src="mikrotik-routing-table-isp-a-isp-b.png"
+    alt="Routing table ISP A dan ISP B"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#e6db74">`</span>/ip route  add dst-address<span style="color:#f92672">=</span>0.0.0.0/0 gateway<span style="color:#f92672">=</span>192.168.1.1 routing-mark<span style="color:#f92672">=</span>to-ISP-A comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Default Route ISP-A&#34;</span>  add dst-address<span style="color:#f92672">=</span>0.0.0.0/0 gateway<span style="color:#f92672">=</span>10.10.10.1 routing-mark<span style="color:#f92672">=</span>to-ISP-B comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Default Route ISP-B&#34;</span><span style="color:#e6db74">`</span>
+</span></span></code></pre></div><p>Pada tahap ini, router sudah memiliki dua jalur internet yang berdiri sendiri.
+Cek routing table dengan perintah:</p>
+<p><a href="mikrotik-route-print-dual-isp.png" class="image-popup">
+  <img
+    src="mikrotik-route-print-dual-isp.png"
+    alt="Route print dual ISP MikroTik"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route print
+</span></span></code></pre></div><h2 id="step-3--konfigurasi-nat-masquerade" class="mb-3">
+  <a href="#step-3--konfigurasi-nat-masquerade" class="text-decoration-none text-dark">
+    Step 3 – Konfigurasi NAT (Masquerade)
+  </a>
+</h2>
+
+<p>Agar client internal dapat mengakses internet, diperlukan konfigurasi <strong>NAT masquerade</strong> pada masing-masing interface ISP.</p>
+<p><a href="mikrotik-nat-masquerade-dual-isp.png" class="image-popup">
+  <img
+    src="mikrotik-nat-masquerade-dual-isp.png"
+    alt="Konfigurasi NAT masquerade MikroTik dual ISP"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/ip firewall nat 
+</span></span><span style="display:flex;"><span>add chain<span style="color:#f92672">=</span>srcnat out-interface<span style="color:#f92672">=</span>ether1 action<span style="color:#f92672">=</span>masquerade comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NAT ISP A&#34;</span> 
+</span></span><span style="display:flex;"><span>add chain<span style="color:#f92672">=</span>srcnat out-interface<span style="color:#f92672">=</span>ether2 action<span style="color:#f92672">=</span>masquerade comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NAT ISP B&#34;</span>
+</span></span></code></pre></div><p>Tanpa NAT, traffic dari client tidak akan dapat berkomunikasi dengan jaringan publik meskipun routing sudah benar.</p>
+<p>Verifikasi NAT rules dengan:</p>
+<p><a href="mikrotik-firewall-nat-rules.png" class="image-popup">
+  <img
+    src="mikrotik-firewall-nat-rules.png"
+    alt="Firewall NAT rules MikroTik"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip firewall nat print
+</span></span></code></pre></div><h2 id="step-4--policy-based-routing-route-rules" class="mb-3">
+  <a href="#step-4--policy-based-routing-route-rules" class="text-decoration-none text-dark">
+    Step 4 – Policy Based Routing (Route Rules)
+  </a>
+</h2>
+
+<p>Pada tahap ini, kita menentukan kebijakan routing berdasarkan <strong>source IP address</strong>.</p>
+<p><a href="mikrotik-policy-routing-rules.png" class="image-popup">
+  <img
+    src="mikrotik-policy-routing-rules.png"
+    alt="Policy based routing rules MikroTik"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/ip route rule 
+</span></span><span style="display:flex;"><span>add src-address<span style="color:#f92672">=</span>172.16.10.0/24 action<span style="color:#f92672">=</span>lookup-only-in-table table<span style="color:#f92672">=</span>to-ISP-B comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LAN 1 via ISP B&#34;</span> 
+</span></span><span style="display:flex;"><span>add src-address<span style="color:#f92672">=</span>172.16.20.0/24 action<span style="color:#f92672">=</span>lookup-only-in-table table<span style="color:#f92672">=</span>to-ISP-A comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;LAN 2 via ISP A&#34;</span>
+</span></span></code></pre></div><p>Dengan aturan ini:</p>
+<ul>
+<li>Traffic dari <strong>LAN 1</strong> akan selalu keluar melalui <strong>ISP B</strong></li>
+<li>Traffic dari <strong>LAN 2</strong> akan selalu keluar melalui <strong>ISP A</strong></li>
+</ul>
+<h2 id="step-5--default-route-untuk-router" class="mb-3">
+  <a href="#step-5--default-route-untuk-router" class="text-decoration-none text-dark">
+    Step 5 – Default Route untuk Router
+  </a>
+</h2>
+
+<p>Agar router MikroTik sendiri tetap dapat mengakses internet (update, DNS, NTP, dll), tambahkan satu default route <strong>tanpa routing mark</strong>.</p>
+<p><a href="mikrotik-default-route-router.png" class="image-popup">
+  <img
+    src="mikrotik-default-route-router.png"
+    alt="Default route untuk router MikroTik"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/ip route  add dst-address<span style="color:#f92672">=</span>0.0.0.0/0 gateway<span style="color:#f92672">=</span>192.168.1.1 distance<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> comment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Default route for router&#34;</span>
+</span></span></code></pre></div><p>Route ini hanya digunakan oleh router, bukan oleh traffic client.</p>
+<h2 id="step-6--pengujian-konfigurasi" class="mb-3">
+  <a href="#step-6--pengujian-konfigurasi" class="text-decoration-none text-dark">
+    Step 6 – Pengujian Konfigurasi
+  </a>
+</h2>
+
+<p>Setelah konfigurasi selesai, lakukan pengujian dari sisi client.</p>
+<ul>
+<li>
+<p>Dari client <strong>LAN 1</strong>, lakukan <code>traceroute</code> dan pastikan hop pertama melewati <strong>ISP B</strong></p>
+<p><a href="traceroute-lan1-via-isp-b.png" class="image-popup">
+  <img
+    src="traceroute-lan1-via-isp-b.png"
+    alt="Traceroute LAN 1 via ISP B"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+</li>
+<li>
+<p>Dari client <strong>LAN 2</strong>, lakukan <code>traceroute</code> dan pastikan hop pertama melewati <strong>ISP A</strong></p>
+<p><a href="traceroute-lan2-via-isp-a.png" class="image-popup">
+  <img
+    src="traceroute-lan2-via-isp-a.png"
+    alt="Traceroute LAN 2 via ISP A"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+</li>
+</ul>
+<p>Jika hasil traceroute sesuai dengan gateway yang diharapkan, maka konfigurasi <strong>Policy Based Routing</strong> telah berjalan dengan benar.</p>
+<h2 id="kesimpulan" class="mb-3">
+  <a href="#kesimpulan" class="text-decoration-none text-dark">
+    Kesimpulan
+  </a>
+</h2>
+
+<p>Dengan menggunakan <strong>IP statis</strong> dan <strong>Policy Based Routing</strong>, pengelolaan multi-ISP pada MikroTik menjadi lebih terstruktur, terkontrol, dan mudah diprediksi.</p>
+<p>Metode ini sangat cocok diterapkan pada <strong>lab jaringan</strong>, <strong>kantor</strong>, maupun environment yang membutuhkan <strong>segmentasi traffic</strong> berdasarkan kebijakan tertentu.</p>
+
+        </article>
+
+
+<div class="tag-widget post-tag-container mb-5 mt-5">
+  <div class="tagcloud">
+    
+      <a href="/tags/mikrotik/" class="tag-cloud-link">Mikrotik</a>
+    
+      <a href="/tags/networking/" class="tag-cloud-link">Networking</a>
+    
+      <a href="/tags/routing/" class="tag-cloud-link">Routing</a>
+    
+      <a href="/tags/pbr-mikrotik/" class="tag-cloud-link">PBR-MikroTik</a>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      
+      <div class="col-lg-4 sidebar ftco-animate">
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Recent Blog</h3>
+          
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/samba-file-server-on-linux-secure-file-sharing.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/samba-syntax/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/samba-syntax/samba-configuration-explained-syntax.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/samba-syntax/">Penjelasan Lengkap Konfigurasi Samba: Sintaks smb.conf</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">MikroTik Policy Based Routing: Memisahkan Traffic Internet</a>
+      </h3>
+      <div class="meta">
+        <span>23 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/cara-install-apache2-di-debian/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/cara-install-apache2-di-debian/how-to-install-apache2-on-debian.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/cara-install-apache2-di-debian/">Cara Install Apache2 di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>20 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-http-reverse-proxy-apache2/reverse-proxy-apache2.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">Konfigurasi Apache Reverse Proxy di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>18 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+
+        </div>
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Tag</h3>
+          <div class="tagcloud">
+            
+              <a href="/id/tags/apache/" class="tag-cloud-link">
+                Apache
+              </a>
+            
+              <a href="/id/tags/event/" class="tag-cloud-link">
+                Event
+              </a>
+            
+              <a href="/id/tags/fiber-optic/" class="tag-cloud-link">
+                Fiber-Optic
+              </a>
+            
+              <a href="/id/tags/linux/" class="tag-cloud-link">
+                Linux
+              </a>
+            
+              <a href="/id/tags/mikrotik/" class="tag-cloud-link">
+                Mikrotik
+              </a>
+            
+              <a href="/id/tags/networking/" class="tag-cloud-link">
+                Networking
+              </a>
+            
+              <a href="/id/tags/pbr-mikrotik/" class="tag-cloud-link">
+                PBR-MikroTik
+              </a>
+            
+              <a href="/id/tags/project/" class="tag-cloud-link">
+                Project
+              </a>
+            
+              <a href="/id/tags/reverse_proxy/" class="tag-cloud-link">
+                Reverse_Proxy
+              </a>
+            
+              <a href="/id/tags/routing/" class="tag-cloud-link">
+                Routing
+              </a>
+            
+              <a href="/id/tags/ruijie/" class="tag-cloud-link">
+                Ruijie
+              </a>
+            
+              <a href="/id/tags/samba/" class="tag-cloud-link">
+                Samba
+              </a>
+            
+              <a href="/id/tags/server/" class="tag-cloud-link">
+                Server
+              </a>
+            
+              <a href="/id/tags/smb/" class="tag-cloud-link">
+                SMB
+              </a>
+            
+              <a href="/id/tags/survey/" class="tag-cloud-link">
+                Survey
+              </a>
+            
+              <a href="/id/tags/sysadmin/" class="tag-cloud-link">
+                Sysadmin
+              </a>
+            
+              <a href="/id/tags/wireless/" class="tag-cloud-link">
+                Wireless
+              </a>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="ftco-footer ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Tentang Saya</h2>
+          <p>IT Networking Support &amp; Junior NOC Engineer dengan pengalaman langsung dalam deployment infrastruktur dan operasional sistem.</p>
+
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+            <li class="ftco-animate">
+              <a href="https://www.facebook.com/people/Rosyid-Majid/pfbid02YVNFBmRDRqeQAToVZ3nGJZxNoMBiQr6fo16VAc6eqAh7tLM9gwhRgQbutjvfQdf9l/">
+                <span class="fa-brands fa-facebook-f"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.instagram.com/rosyidmajid45/">
+                <span class="fa-brands fa-instagram"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.linkedin.com/in/rosyid-majid-678833198">
+                <span class="fa-brands fa-linkedin-in"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="/id/#home-section">
+                <span class="icon-long-arrow-right mr-2"></span>Beranda
+              </a>
+            </li>
+            <li>
+              <a href="/id/#about-section">
+                <span class="icon-long-arrow-right mr-2"></span>Tentang
+              </a>
+            </li>
+            <li>
+              <a href="/id/#projects-section">
+                <span class="icon-long-arrow-right mr-2"></span>Proyek
+              </a>
+            </li>
+            <li>
+              <a href="/id/blog/">
+                <span class="icon-long-arrow-right mr-2"></span>Blog
+              </a>
+            </li>
+            <li>
+              <a href="/id/tools/">
+                <span class="icon-long-arrow-right mr-2"></span>Tools
+              </a>
+            </li>
+            <li>
+              <a href="/id/#contact-section">
+                <span class="icon-long-arrow-right mr-2"></span>Kontak
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li>
+                <span class="icon icon-map-marker"></span>
+                <span class="text">Wonosobo, Jawa Tengah, Indonesia</span>
+              </li>
+              <li>
+                <a href="tel:+6282231185610">
+                  <span class="icon icon-phone"></span>
+                  <span class="text">+62 822-3118-5610</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rosyidmjd@gmail.com">
+                  <span class="icon icon-envelope"></span>
+                  <span class="text">rosyidmjd@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          © <script>document.write(new Date().getFullYear());</script>
+          Rosyid Majid · All rights reserved<br>
+          IT Networking Support &amp; Junior NOC Engineer
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+  
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+
+
+</body>
+</html>

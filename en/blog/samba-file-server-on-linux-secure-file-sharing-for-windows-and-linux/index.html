@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+
+
+<title>
+  
+    Samba Server on Linux: Secure File Sharing | Rosyid Majid
+  
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  
+
+<meta name="description" content="Learn how to set up a Samba file server on Linux to securely share files with Windows and Linux clients. Includes user management, permissions, and troubleshooting.">
+
+
+
+
+  
+
+
+<meta name="keywords" content="samba smb.conf, samba configuration, linux file server, smb cifs, samba server linux">
+
+
+
+<meta name="author" content="Rosyid Majid">
+
+
+<link rel="canonical" href="https://rosyidmjd.my.id/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Samba Server on Linux: Secure File Sharing">
+<meta property="og:description" content="Learn how to set up a Samba file server on Linux to securely share files with Windows and Linux clients. Includes user management, permissions, and troubleshooting.">
+<meta property="og:url" content="https://rosyidmjd.my.id/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/">
+<meta property="og:site_name" content="Rosyid Majid">
+<meta property="og:locale" content="en_US">
+
+
+
+
+  
+
+
+<meta property="og:image" content="https://rosyidmjd.my.id/samba-file-server-on-linux-secure-file-sharing.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Samba Server on Linux: Secure File Sharing">
+<meta name="twitter:description" content="Learn how to set up a Samba file server on Linux to securely share files with Windows and Linux clients. Includes user management, permissions, and troubleshooting.">
+
+<meta name="twitter:image" content="https://rosyidmjd.my.id/samba-file-server-on-linux-secure-file-sharing.jpg">
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.css">
+   
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+    
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/en/">
+      <span>R</span>osyid Majid
+    </a>
+
+    <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
+      type="button"
+      data-toggle="collapse"
+      data-target="#ftco-nav">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav nav ml-auto">
+
+        <li class="nav-item">
+          <a href="/en/#home-section" class="nav-link">
+            <span>Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/#about-section" class="nav-link">
+            <span>About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/#resume-section" class="nav-link">
+            <span>Resume</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/#projects-section" class="nav-link">
+            <span>Projects</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/blog/" class="nav-link">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/tools/" class="nav-link">
+            <span>Tools</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/en/#contact-section" class="nav-link">
+            <span>Contact</span>
+          </a>
+        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+    <a class="dropdown-item" href="/id/">
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    </a>
+    <a class="dropdown-item" href="/en/">
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    </a>
+  </div>
+</li>
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="hero-wrap js-fullheight">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+      <div class="col-lg-10 ftco-animate d-flex align-items-center">
+        <div class="text text-center">
+          <h1 class="mb-3 display-4">Samba Server on Linux: Secure File Sharing</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-lg-8 ftco-animate">
+
+        <div class="d-flex mb-3 text-muted align-items-center">
+          <div class="mr-4">
+            <span class="icon-calendar">
+                26 Jan 2026
+            </span>
+          </div>
+          
+          <div>
+            <span class="icon-user">
+                By Rosyid Majid
+            </span>
+          </div>
+        </div>
+
+        <article class="blog-content">
+          <p><a href="samba-file-server-on-linux-secure-file-sharing.jpg" class="image-popup">
+  <img
+    src="samba-file-server-on-linux-secure-file-sharing.jpg"
+    alt="Samba file server on linux secure file sharing"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</p>
+<p><strong>Samba</strong> is a free and open-source implementation of the <strong>SMB/CIFS</strong> protocol that enables file sharing between Linux servers and Windows, Linux, or macOS clients.</p>
+<p>This article explains not only <strong>how to configure Samba</strong>, but also <strong>what each command and configuration directive does</strong>, making it suitable for beginners and system administrators alike.</p>
+
+<div class="toc mb-4 p-3 border rounded bg-light">
+  <h4>Table of Contents</h4>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-installing-samba">1. Installing Samba</a></li>
+    <li><a href="#2-creating-a-shared-directory">2. Creating a Shared Directory</a></li>
+    <li><a href="#3-configuring-samba">3. Configuring Samba</a></li>
+    <li><a href="#4-creating-samba-users">4. Creating Samba Users</a></li>
+    <li><a href="#5-restarting-and-enabling-samba-services">5. Restarting and Enabling Samba Services</a></li>
+    <li><a href="#6-validating-the-configuration">6. Validating the Configuration</a></li>
+    <li><a href="#7-accessing-the-share-form-windows">7. Accessing the Share form Windows</a></li>
+    <li><a href="#8-accessing-the-share-from-linux">8. Accessing the Share from Linux</a></li>
+    <li><a href="#9-fixing-permission-issues">9. Fixing Permission Issues</a></li>
+    <li><a href="#10-troubleshooting-commands">10. Troubleshooting Commands</a></li>
+    <li><a href="#best-practices">Best Practices</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+</div>
+
+
+<h2 id="1-installing-samba" class="mb-3">
+  <a href="#1-installing-samba" class="text-decoration-none text-dark">
+    1. Installing Samba
+  </a>
+</h2>
+
+<p>First, update the package repository and install the required Samba packages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install samba samba-common
+</span></span></code></pre></div><ul>
+<li><strong>samba</strong>: installs the core Samba services (<code>smbd</code>, <code>nmbd</code>)</li>
+<li><strong>samba-common</strong>: provides shared configuration files and utilities</li>
+</ul>
+<p>Verify that Samba is installed correctly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbd --version
+</span></span></code></pre></div><ul>
+<li>Verifies that the Samba daemon is installed correctly</li>
+<li>Displays the installed Samba version</li>
+</ul>
+<h2 id="2-creating-a-shared-directory" class="mb-3">
+  <a href="#2-creating-a-shared-directory" class="text-decoration-none text-dark">
+    2. Creating a Shared Directory
+  </a>
+</h2>
+
+<p>Create a dedicated directory for file sharing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir -p /srv/share
+</span></span></code></pre></div><ul>
+<li>Creates the directory /srv/share</li>
+<li><code>-p</code> ensures parent directories are created if they do not exist</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown -R $USER:$USER /srv/share
+</span></span></code></pre></div><ul>
+<li>Changes ownership of the directory to the current user</li>
+<li><code>-R</code> applies ownership recursively to all files and subdirectories</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">775</span> /srv/share
+</span></span></code></pre></div><ul>
+<li>Sets permissions:
+<ul>
+<li>Owner &amp; group: read, write, execute</li>
+<li>Others: read &amp; execute</li>
+</ul>
+</li>
+<li>Required so Samba users can access the directory</li>
+</ul>
+<p><strong>Note :</strong> <code>/srv</code> is recommended for service-related data according to Linux filesystem standards.</p>
+<h2 id="3-configuring-samba" class="mb-3">
+  <a href="#3-configuring-samba" class="text-decoration-none text-dark">
+    3. Configuring Samba
+  </a>
+</h2>
+
+<p>Edit the main Samba configuration file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/samba/smb.conf
+</span></span></code></pre></div><ul>
+<li>Opens the main Samba configuration file</li>
+<li>All share definitions and access rules are defined here</li>
+</ul>
+<p>Add the following configuration at the bottom of the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Share-Umum<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>   comment <span style="color:#f92672">=</span> Public Shared Folder
+</span></span><span style="display:flex;"><span>   path <span style="color:#f92672">=</span> /srv/share
+</span></span><span style="display:flex;"><span>   browseable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>   read only <span style="color:#f92672">=</span> no
+</span></span><span style="display:flex;"><span>   writable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>   create mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0664</span>
+</span></span><span style="display:flex;"><span>   directory mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0775</span>
+</span></span><span style="display:flex;"><span>   valid users <span style="color:#f92672">=</span> @samba
+</span></span></code></pre></div><p><strong>Share Configuration</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Share-Umum<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Defines the name of the Samba share</li>
+<li>This name appears when clients browse server</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>comment <span style="color:#f92672">=</span> Public Shared Folder
+</span></span></code></pre></div><ul>
+<li>Optional description of the shared folder</li>
+<li>Helps identify the share in network browsers</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>path <span style="color:#f92672">=</span> /srv/share
+</span></span></code></pre></div><ul>
+<li>Specifies the directory on the Linux filesystem to be shared</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>browseable <span style="color:#f92672">=</span> yes
+</span></span></code></pre></div><ul>
+<li>Allows the share to be visible when browsing the server</li>
+<li>If set to <code>no</code>, users must access it manually</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>read only <span style="color:#f92672">=</span> no
+</span></span></code></pre></div><ul>
+<li>Allows write access to the share</li>
+<li><code>yes</code> would restrict the share to read-only</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>writable <span style="color:#f92672">=</span> yes
+</span></span></code></pre></div><ul>
+<li>Explicitly enables write permissions</li>
+<li>Often used together with read only = no for clarity</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>create mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0664</span>
+</span></span></code></pre></div><ul>
+<li>Sets default permissions for newly created files</li>
+<li>Files will be readable and writable by owner and group</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>directory mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0775</span>
+</span></span></code></pre></div><ul>
+<li>Sets default permissions for newly created directories</li>
+<li>Allows group members to create and modify files</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>valid users <span style="color:#f92672">=</span> @samba
+</span></span></code></pre></div><ul>
+<li>Restricts access to users in the samba group</li>
+<li>Enhances security by limiting who can access the share</li>
+</ul>
+<h2 id="4-creating-samba-users" class="mb-3">
+  <a href="#4-creating-samba-users" class="text-decoration-none text-dark">
+    4. Creating Samba Users
+  </a>
+</h2>
+
+<p>Samba authentication is based on Linux users with a separate Samba password.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo adduser username
+</span></span></code></pre></div><ul>
+<li>Creates a Linux system user</li>
+<li>Samba authentication is based on Linux users</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo groupadd samba
+</span></span></code></pre></div><ul>
+<li>Creates a dedicated group for Samba users</li>
+<li>Simplifies access control and permission management</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG samba username
+</span></span></code></pre></div><ul>
+<li>Adds the user to the samba group</li>
+<li>-<code>aG</code> ensures existing group memberships are preserved</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbpasswd -a username
+</span></span></code></pre></div><ul>
+<li>Creates a Samba password for the user</li>
+<li>Required for authentication from Windows or Linux clients</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbpasswd -e username
+</span></span></code></pre></div><ul>
+<li>Enables the Samba account</li>
+<li>Without this, the user cannot log in</li>
+</ul>
+<h2 id="5-restarting-and-enabling-samba-services" class="mb-3">
+  <a href="#5-restarting-and-enabling-samba-services" class="text-decoration-none text-dark">
+    5. Restarting and Enabling Samba Services
+  </a>
+</h2>
+
+<p>Apply the configuration by restarting Samba services:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl restart smbd nmbd
+</span></span></code></pre></div><ul>
+<li>Restarts Samba service to apply configuration changes</li>
+<li><code>smbd:</code> handles file sharing and authentication</li>
+<li><code>nmbd:</code> handles NetBIOS name resolution (mainly for Windows)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable smbd nmbd
+</span></span></code></pre></div><ul>
+<li>Ensures Samba services start automatically on boot</li>
+</ul>
+<h2 id="6-validating-the-configuration" class="mb-3">
+  <a href="#6-validating-the-configuration" class="text-decoration-none text-dark">
+    6. Validating the Configuration
+  </a>
+</h2>
+
+<p>Check the Samba configuration <a href="/en/blog/samba-syntax/">syntax</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>testparm
+</span></span></code></pre></div><ul>
+<li>Check the Samba configuration file for syntax errors</li>
+<li>Displays the effective configuration</li>
+<li>Essential for troubleshooting before production use</li>
+</ul>
+<h2 id="7-accessing-the-share-form-windows" class="mb-3">
+  <a href="#7-accessing-the-share-form-windows" class="text-decoration-none text-dark">
+    7. Accessing the Share form Windows
+  </a>
+</h2>
+
+<p>Open File Explorer and access the server using:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">\\</span>IP_Server
+</span></span></code></pre></div><p>or directly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">\\</span>IP_Server<span style="color:#ae81ff">\S</span>hare-Umum
+</span></span></code></pre></div><ul>
+<li>Opens the samba server in Windows Exploler</li>
+<li>Directly accesses the specified share</li>
+<li>Promts for Samba username and password</li>
+</ul>
+<h2 id="8-accessing-the-share-from-linux" class="mb-3">
+  <a href="#8-accessing-the-share-from-linux" class="text-decoration-none text-dark">
+    8. Accessing the Share from Linux
+  </a>
+</h2>
+
+<p><strong>Manual Mount</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mount -t cifs //IP_Server/Share-Umum /mnt/smb -o username<span style="color:#f92672">=</span>username
+</span></span></code></pre></div><ul>
+<li>-t cifs: specifies SMB/CIFS filesystem type</li>
+<li>//IP_Server/Share-Umum: Samba share path</li>
+<li>/mnt/smb: local mount point</li>
+<li>-o username=: Samba login username</li>
+</ul>
+<p><strong>Persistent Mount (<code>/etc/fstab</code>)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># SMB Mount</span>
+</span></span><span style="display:flex;"><span>//IP_Server/Share-Umum  /mnt/smb  cifs  username<span style="color:#f92672">=</span>username,password<span style="color:#f92672">=</span>YOUR_PASSWORD,iocharset<span style="color:#f92672">=</span>utf8,vers<span style="color:#f92672">=</span>3.0  <span style="color:#ae81ff">0</span>  <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><ul>
+<li>Automatically mounts the share at boot</li>
+<li><code>vers=3.0</code> enforces modern SMB protocol</li>
+<li>iocharset=utf8 ensures proper character encoding</li>
+</ul>
+<h2 id="9-fixing-permission-issues" class="mb-3">
+  <a href="#9-fixing-permission-issues" class="text-decoration-none text-dark">
+    9. Fixing Permission Issues
+  </a>
+</h2>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">0775</span> /srv/share
+</span></span></code></pre></div><p>Ensures group members can read, write, and execute</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown -R :samba /srv/share
+</span></span></code></pre></div><ul>
+<li>Assigns group ownerhip to <code>samba</code></li>
+<li>Aligns filesystem permissions with Samba access rules</li>
+</ul>
+<h2 id="10-troubleshooting-commands" class="mb-3">
+  <a href="#10-troubleshooting-commands" class="text-decoration-none text-dark">
+    10. Troubleshooting Commands
+  </a>
+</h2>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl status smbd
+</span></span></code></pre></div><ul>
+<li>Displays Samba service status and error messages</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo netstat -tulnp | grep smb
+</span></span></code></pre></div><ul>
+<li>Confirms Samba is listening on required ports (445, 139)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo smbclient -L localhost -U username
+</span></span></code></pre></div><ul>
+<li>Lists available Samba shares</li>
+<li>Useful for validating authentication and share visibility</li>
+</ul>
+<h2 id="best-practices" class="mb-3">
+  <a href="#best-practices" class="text-decoration-none text-dark">
+    Best Practices
+  </a>
+</h2>
+
+<ul>
+<li>Disable SMB1 (deprecated and insecure)</li>
+<li>Use SMB2 or SMB3 only</li>
+<li>Always align Samba permissions with Linux filesystem permissions</li>
+<li>Avoid storing frequently synchronized data (e.g., Obsidian Vaults) on SMB</li>
+</ul>
+<h2 id="conclusion" class="mb-3">
+  <a href="#conclusion" class="text-decoration-none text-dark">
+    Conclusion
+  </a>
+</h2>
+
+<p>Understanding each command and configuration directive helps prevent common Samba issues related to permissions, authentication, and access control.
+With proper setup and security practices, Samba remains a robust and reliable file-sharing solution for Linux-based environments.</p>
+
+        </article>
+
+
+<div class="tag-widget post-tag-container mb-5 mt-5">
+  <div class="tagcloud">
+    
+      <a href="/tags/linux/" class="tag-cloud-link">Linux</a>
+    
+      <a href="/tags/server/" class="tag-cloud-link">Server</a>
+    
+      <a href="/tags/samba/" class="tag-cloud-link">Samba</a>
+    
+      <a href="/tags/smb/" class="tag-cloud-link">SMB</a>
+    
+      <a href="/tags/sysadmin/" class="tag-cloud-link">Sysadmin</a>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      
+      <div class="col-lg-4 sidebar ftco-animate">
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Recent Blog</h3>
+          
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/en/blog/samba-syntax/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/en/blog/samba-syntax/samba-configuration-explained-syntax.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/en/blog/samba-syntax/">Samba Configuration Explained: Complete smb.conf Syntax</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/samba-file-server-on-linux-secure-file-sharing.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/en/blog/samba-file-server-on-linux-secure-file-sharing-for-windows-and-linux/">Samba Server on Linux: Secure File Sharing</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/">MikroTik Policy Based Routing: Separating Internet Traffic</a>
+      </h3>
+      <div class="meta">
+        <span>23 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/en/blog/install-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/en/blog/install-apache2/how-to-install-apache2-on-debian.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/en/blog/install-apache2/">How to Install Apache2 on Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>20 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/en/blog/konfigurasi-http-reverse-proxy-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/en/blog/konfigurasi-http-reverse-proxy-apache2/reverse-proxy-apache2.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/en/blog/konfigurasi-http-reverse-proxy-apache2/">Apache Reverse Proxy Configuration on Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>18 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+
+        </div>
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Tag</h3>
+          <div class="tagcloud">
+            
+              <a href="/en/tags/apache/" class="tag-cloud-link">
+                Apache
+              </a>
+            
+              <a href="/en/tags/event/" class="tag-cloud-link">
+                Event
+              </a>
+            
+              <a href="/en/tags/fiber-optic/" class="tag-cloud-link">
+                Fiber-Optic
+              </a>
+            
+              <a href="/en/tags/linux/" class="tag-cloud-link">
+                Linux
+              </a>
+            
+              <a href="/en/tags/mikrotik/" class="tag-cloud-link">
+                Mikrotik
+              </a>
+            
+              <a href="/en/tags/networking/" class="tag-cloud-link">
+                Networking
+              </a>
+            
+              <a href="/en/tags/pbr-mikrotik/" class="tag-cloud-link">
+                PBR-MikroTik
+              </a>
+            
+              <a href="/en/tags/project/" class="tag-cloud-link">
+                Project
+              </a>
+            
+              <a href="/en/tags/reverse_proxy/" class="tag-cloud-link">
+                Reverse_Proxy
+              </a>
+            
+              <a href="/en/tags/routing/" class="tag-cloud-link">
+                Routing
+              </a>
+            
+              <a href="/en/tags/ruijie/" class="tag-cloud-link">
+                Ruijie
+              </a>
+            
+              <a href="/en/tags/samba/" class="tag-cloud-link">
+                Samba
+              </a>
+            
+              <a href="/en/tags/server/" class="tag-cloud-link">
+                Server
+              </a>
+            
+              <a href="/en/tags/smb/" class="tag-cloud-link">
+                SMB
+              </a>
+            
+              <a href="/en/tags/survey/" class="tag-cloud-link">
+                Survey
+              </a>
+            
+              <a href="/en/tags/sysadmin/" class="tag-cloud-link">
+                Sysadmin
+              </a>
+            
+              <a href="/en/tags/wireless/" class="tag-cloud-link">
+                Wireless
+              </a>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="ftco-footer ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">About</h2>
+          <p>IT Networking Support &amp; Junior NOC Engineer with hands-on experience in infrastructure deployment and system operations.</p>
+
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+            <li class="ftco-animate">
+              <a href="https://www.facebook.com/people/Rosyid-Majid/pfbid02YVNFBmRDRqeQAToVZ3nGJZxNoMBiQr6fo16VAc6eqAh7tLM9gwhRgQbutjvfQdf9l/">
+                <span class="fa-brands fa-facebook-f"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.instagram.com/rosyidmajid45/">
+                <span class="fa-brands fa-instagram"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.linkedin.com/in/rosyid-majid-678833198">
+                <span class="fa-brands fa-linkedin-in"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="/en/#home-section">
+                <span class="icon-long-arrow-right mr-2"></span>Home
+              </a>
+            </li>
+            <li>
+              <a href="/en/#about-section">
+                <span class="icon-long-arrow-right mr-2"></span>About
+              </a>
+            </li>
+            <li>
+              <a href="/en/#projects-section">
+                <span class="icon-long-arrow-right mr-2"></span>Projects
+              </a>
+            </li>
+            <li>
+              <a href="/en/blog/">
+                <span class="icon-long-arrow-right mr-2"></span>Blog
+              </a>
+            </li>
+            <li>
+              <a href="/en/tools/">
+                <span class="icon-long-arrow-right mr-2"></span>Tools
+              </a>
+            </li>
+            <li>
+              <a href="/en/#contact-section">
+                <span class="icon-long-arrow-right mr-2"></span>Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Have a Questions?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li>
+                <span class="icon icon-map-marker"></span>
+                <span class="text">Wonosobo, Central Java, Indonesia</span>
+              </li>
+              <li>
+                <a href="tel:+6282231185610">
+                  <span class="icon icon-phone"></span>
+                  <span class="text">+62 822-3118-5610</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rosyidmjd@gmail.com">
+                  <span class="icon icon-envelope"></span>
+                  <span class="text">rosyidmjd@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          © <script>document.write(new Date().getFullYear());</script>
+          Rosyid Majid · All rights reserved<br>
+          IT Networking Support &amp; Junior NOC Engineer
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+  
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+
+
+</body>
+</html>

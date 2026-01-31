@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Networking on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/en/tags/networking/</link>
+    <description>Recent content in Networking on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 23 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/en/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MikroTik Policy Based Routing: Separating Internet Traffic</title>
+      <link>https://rosyidmjd.my.id/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/</guid>
+      <description>Detailed guide to configuration mikrotik policy based routing separating internet traffic by subnet</description>
+    </item>
+    <item>
+      <title>PTP FO Deployment at Balai Pelatihan Kesehatan Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/en/blog/ptp-fo-deployment-balai-pelatihan-kesehatan-yogyakarta/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/ptp-fo-deployment-balai-pelatihan-kesehatan-yogyakarta/</guid>
+      <description>Implementation of a PTP FO link connecting the Server in the East Building to the Staff Room in the West Building at Balai Pelatihan Kesehatan Yogyakarta, with HTB, Box Panel, and Switch deployment for wired and wireless devices.</description>
+    </item>
+    <item>
+      <title>Network Infrastructure Survey for Kalola Coffeeshop Perumnas Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/en/blog/network-infrastructure-survey-kalola-coffeeshop/</link>
+      <pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/network-infrastructure-survey-kalola-coffeeshop/</guid>
+      <description>Conducted a comprehensive network survey for Kalola Coffeeshop, including cable path assessment, hardware requirements planning, and access point placement design.</description>
+    </item>
+    <item>
+      <title>Modem Installation and EOS Monitoring – Wayang Jogja Night Carnival</title>
+      <link>https://rosyidmjd.my.id/en/blog/modem-installation-eos-monitoring-wjnc/</link>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/modem-installation-eos-monitoring-wjnc/</guid>
+      <description>Provided reliable internet connectivity for live YouTube streaming and videotron displays at four locations during Wayang Jogja Night Carnival, with continuous monitoring throughout the event.</description>
+    </item>
+  </channel>
+</rss>

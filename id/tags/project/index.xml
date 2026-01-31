@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/id/tags/project/</link>
+    <description>Recent content in Project on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>id-ID</language>
+    <lastBuildDate>Mon, 12 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/id/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maintenance &amp; Optimasi PTP Wireless XST Lite5 AC: Hotel Royal Ambarrukmo</title>
+      <link>https://rosyidmjd.my.id/id/blog/maintenance-ptp-wireless-xst-lite5-ac-hotel-royal-ambarrukmo/</link>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/maintenance-ptp-wireless-xst-lite5-ac-hotel-royal-ambarrukmo/</guid>
+      <description>Studi kasus troubleshooting link PTP wireless Hotel Royal Ambarrukmo – laundry menggunakan XST Lite5 AC, mulai dari pointing antena, penggantian perangkat, hingga optimasi akhir untuk koneksi stabil.</description>
+    </item>
+    <item>
+      <title>Deployment Access Point di Kost Akanaka Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/deployment-access-point-kost-akanaka-yogyakarta/</link>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/deployment-access-point-kost-akanaka-yogyakarta/</guid>
+      <description>Implementasi jaringan Wi-Fi menggunakan 3 unit Access Point Ruijie RG-AP 2260(G) di Kost Akanaka Yogyakarta dengan manajemen terpusat melalui Ruijie Cloud Controller.</description>
+    </item>
+    <item>
+      <title>EOS Event UNDP di Royal Ambarrukmo Hotel</title>
+      <link>https://rosyidmjd.my.id/id/blog/eos-event-undp-royal-ambarrukmo-hotel/</link>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/eos-event-undp-royal-ambarrukmo-hotel/</guid>
+      <description>Implementasi jaringan lokal secara step-by-step untuk event UNDP 2024 di Royal Ambarrukmo Hotel, mencakup instalasi AP, penarikan LAN, serta monitoring jaringan selama 2 hari.</description>
+    </item>
+    <item>
+      <title>Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/</guid>
+      <description>Implementasi jaringan PTP FO yang menghubungkan Server di Gedung Timur dengan Ruang Staff di Gedung Barat Balai Pelatihan Kesehatan Yogyakarta, dilengkapi HTB, Box Panel, dan Switch untuk perangkat kabel dan nirkabel.</description>
+    </item>
+    <item>
+      <title>Survey Infrastruktur Jaringan Kalola Coffeeshop Perumnas Yogyakarta</title>
+      <link>https://rosyidmjd.my.id/id/blog/network-infrastructure-survey-kalola-coffeeshop/</link>
+      <pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/network-infrastructure-survey-kalola-coffeeshop/</guid>
+      <description>Melakukan survey jaringan secara menyeluruh di Kalola Coffeeshop, mencakup analisis jalur kabel, perencanaan kebutuhan perangkat, dan desain penempatan access point.</description>
+    </item>
+    <item>
+      <title>Instalasi &amp; Monitoring EOS – Wayang Jogja Night Carnival</title>
+      <link>https://rosyidmjd.my.id/id/blog/instalasi-monitoring-eos-wayang-jogja-night-carnaval/</link>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/id/blog/instalasi-monitoring-eos-wayang-jogja-night-carnaval/</guid>
+      <description>Menyediakan koneksi internet yang stabil untuk live streaming YouTube dan videotron di empat lokasi selama Wayang Jogja Night Carnival dengan monitoring penuh selama acara.</description>
+    </item>
+  </channel>
+</rss>

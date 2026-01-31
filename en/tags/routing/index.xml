@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Routing on Rosyid Majid</title>
+    <link>https://rosyidmjd.my.id/en/tags/routing/</link>
+    <description>Recent content in Routing on Rosyid Majid</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 23 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://rosyidmjd.my.id/en/tags/routing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MikroTik Policy Based Routing: Separating Internet Traffic</title>
+      <link>https://rosyidmjd.my.id/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/</link>
+      <pubDate>Fri, 23 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://rosyidmjd.my.id/en/blog/mikrotik-policy-based-routing-separating-internet-traffic/</guid>
+      <description>Detailed guide to configuration mikrotik policy based routing separating internet traffic by subnet</description>
+    </item>
+  </channel>
+</rss>

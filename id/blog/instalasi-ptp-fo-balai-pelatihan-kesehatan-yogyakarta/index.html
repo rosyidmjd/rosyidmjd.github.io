@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+
+
+<title>
+  
+    Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta | Rosyid Majid
+  
+</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  
+
+<meta name="description" content="Instalasi jaringan Point-to-Point Fiber Optic (PTP FO) antara Server Gedung Timur dan Ruang Staff Gedung Barat, meliputi pemasangan HTB, Box Panel, instalasi Switch, serta validasi konektivitas jaringan.">
+
+
+
+
+  
+
+
+<meta name="keywords" content="instalasi ptp fo, balai pelatihan kesehatan yogyakarta, instalasi htb, pemasangan switch, konektivitas jaringan">
+
+
+
+<meta name="author" content="Rosyid Majid">
+
+
+<link rel="canonical" href="https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta">
+<meta property="og:description" content="Instalasi jaringan Point-to-Point Fiber Optic (PTP FO) antara Server Gedung Timur dan Ruang Staff Gedung Barat, meliputi pemasangan HTB, Box Panel, instalasi Switch, serta validasi konektivitas jaringan.">
+<meta property="og:url" content="https://rosyidmjd.my.id/id/blog/instalasi-ptp-fo-balai-pelatihan-kesehatan-yogyakarta/">
+<meta property="og:site_name" content="Rosyid Majid">
+<meta property="og:locale" content="id_ID">
+
+
+
+
+  
+
+
+<meta property="og:image" content="https://rosyidmjd.my.id/work-6.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta">
+<meta name="twitter:description" content="Instalasi jaringan Point-to-Point Fiber Optic (PTP FO) antara Server Gedung Timur dan Ruang Staff Gedung Barat, meliputi pemasangan HTB, Box Panel, instalasi Switch, serta validasi konektivitas jaringan.">
+
+<meta name="twitter:image" content="https://rosyidmjd.my.id/work-6.jpg">
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="/images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.css">
+   
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
+
+  <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/ionicons.min.css">
+    
+  <link rel="stylesheet" href="/css/flaticon.css">
+  <link rel="stylesheet" href="/css/icomoon.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/id/">
+      <span>R</span>osyid Majid
+    </a>
+
+    <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle"
+      type="button"
+      data-toggle="collapse"
+      data-target="#ftco-nav">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav nav ml-auto">
+
+        <li class="nav-item">
+          <a href="/id/#home-section" class="nav-link">
+            <span>Beranda</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#about-section" class="nav-link">
+            <span>Tentang</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#resume-section" class="nav-link">
+            <span>Resume</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#projects-section" class="nav-link">
+            <span>Proyek</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/blog/" class="nav-link">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/tools/" class="nav-link">
+            <span>Tools</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/id/#contact-section" class="nav-link">
+            <span>Kontak</span>
+          </a>
+        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown">
+    <a class="dropdown-item" href="/id/">
+      <img src="/images/flags/id.png" alt="ID" width="14"> Indonesia
+    </a>
+    <a class="dropdown-item" href="/en/">
+      <img src="/images/flags/us.png" alt="EN" width="14"> English
+    </a>
+  </div>
+</li>
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="hero-wrap js-fullheight">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
+      <div class="col-lg-10 ftco-animate d-flex align-items-center">
+        <div class="text text-center">
+          <h1 class="mb-3 display-4">Instalasi PTP FO di Balai Pelatihan Kesehatan Yogyakarta</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="col-lg-8 ftco-animate">
+
+        <div class="d-flex mb-3 text-muted align-items-center">
+          <div class="mr-4">
+            <span class="icon-calendar">
+                09 Jan 2026
+            </span>
+          </div>
+          
+          <div>
+            <span class="icon-user">
+                By Rosyid Majid
+            </span>
+          </div>
+        </div>
+
+        <article class="blog-content">
+          <h2 id="gambaran-proyek" class="mb-3">
+  <a href="#gambaran-proyek" class="text-decoration-none text-dark">
+    Gambaran Proyek
+  </a>
+</h2>
+
+<p>Balai Pelatihan Kesehatan Yogyakarta membutuhkan <strong>koneksi fiber optik point-to-point (PTP FO) yang andal</strong> antara <strong>Server di Gedung Timur</strong> dan <strong>Ruang Staff di Gedung Barat</strong> untuk mendukung komunikasi data yang lancar antar gedung.</p>
+<p>Proyek ini mencakup <strong>instalasi HTB, penarikan dan terminasi kabel fiber optik, pemasangan Box Panel, serta deployment Switch</strong>, guna menyediakan konektivitas untuk PC, laptop, dan satu unit UniFi Access Point.</p>
+
+<div class="toc mb-4 p-3 border rounded bg-light">
+  <h4>Table of Contents</h4>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gambaran-proyek">Gambaran Proyek</a></li>
+    <li><a href="#ruang-lingkup-pekerjaan">Ruang Lingkup Pekerjaan</a></li>
+    <li><a href="#tanggung-jawab">Tanggung Jawab</a></li>
+    <li><a href="#detail-implementasi">Detail Implementasi</a>
+      <ul>
+        <li><a href="#instalasi-fisik">Instalasi Fisik</a></li>
+        <li><a href="#deployment-fiber-optik">Deployment Fiber Optik</a></li>
+        <li><a href="#konfigurasi-perangkat-jaringan">Konfigurasi Perangkat Jaringan</a></li>
+      </ul>
+    </li>
+    <li><a href="#tools--teknologi">Tools &amp; Teknologi</a></li>
+    <li><a href="#analisis-jaringan">Analisis Jaringan</a></li>
+    <li><a href="#hasil-akhir">Hasil Akhir</a></li>
+  </ul>
+</nav>
+</div>
+
+
+<h2 id="ruang-lingkup-pekerjaan" class="mb-3">
+  <a href="#ruang-lingkup-pekerjaan" class="text-decoration-none text-dark">
+    Ruang Lingkup Pekerjaan
+  </a>
+</h2>
+
+<ul>
+<li><strong>Link PTP FO:</strong> Server Gedung Timur &lt;=&gt; Ruang Staff Gedung Barat</li>
+<li><strong>Perangkat Terpasang:</strong>
+<ul>
+<li>HTB di sisi Server dan sisi Staff</li>
+<li>Box Panel di Ruang Staff Gedung Barat</li>
+<li>Switch untuk PC, laptop, dan 1 UniFi AP</li>
+</ul>
+</li>
+<li><strong>Media Kabel:</strong> Fiber optik single-mode untuk link PTP</li>
+</ul>
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-light">
+      <tr>
+          <th>Lokasi</th>
+          <th>Dokumentasi</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Server Gedung Timur</strong></td>
+          <td><a href="htb-server-east.jpg" class="image-popup">
+  <img
+    src="htb-server-east.jpg"
+    alt="HTB Server Gedung Timur"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</td>
+      </tr>
+      <tr>
+          <td><strong>Ruang Staff Gedung Barat</strong></td>
+          <td><a href="box-panel-htb-staff.jpg" class="image-popup">
+  <img
+    src="box-panel-htb-staff.jpg"
+    alt="Box Panel &amp; HTB Staff"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</td>
+      </tr>
+      <tr>
+          <td><strong>Pengujian Redaman Fiber</strong></td>
+          <td><a href="fiber-attenuation-test.jpg" class="image-popup">
+  <img
+    src="fiber-attenuation-test.jpg"
+    alt="Redaman Link Fiber"
+    class="img-fluid"
+    loading="lazy"
+  />
+</a>
+</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<h2 id="tanggung-jawab" class="mb-3">
+  <a href="#tanggung-jawab" class="text-decoration-none text-dark">
+    Tanggung Jawab
+  </a>
+</h2>
+
+<ul>
+<li><strong>Instalasi HTB:</strong> Pemasangan HTB di sisi Server dan Staff untuk terminasi fiber optik.</li>
+<li><strong>Penarikan Kabel PTP FO:</strong> Penarikan dan terminasi kabel fiber optik antar gedung.</li>
+<li><strong>Pemasangan Box Panel:</strong> Instalasi dan penataan koneksi fiber di Ruang Staff.</li>
+<li><strong>Validasi Jaringan:</strong> Pengujian konektivitas dan kestabilan transmisi data.</li>
+<li><strong>Koordinasi Stakeholder:</strong> Berkoordinasi dengan <strong>Person in Charge (PIC)</strong> terkait penempatan perangkat, jalur kabel fiber optik, serta kebutuhan teknis di lokasi agar instalasi sesuai dengan infrastruktur gedung.</li>
+</ul>
+<h2 id="detail-implementasi" class="mb-3">
+  <a href="#detail-implementasi" class="text-decoration-none text-dark">
+    Detail Implementasi
+  </a>
+</h2>
+
+<h3 id="instalasi-fisik" class="mb-3">
+  <a href="#instalasi-fisik" class="text-decoration-none text-dark">
+    Instalasi Fisik
+  </a>
+</h3>
+
+<ul>
+<li>HTB dipasang dengan aman di lokasi Server dan Ruang Staff.</li>
+<li>Box Panel dipasang untuk memastikan terminasi fiber tertata dan rapi.</li>
+</ul>
+<h3 id="deployment-fiber-optik" class="mb-3">
+  <a href="#deployment-fiber-optik" class="text-decoration-none text-dark">
+    Deployment Fiber Optik
+  </a>
+</h3>
+
+<ul>
+<li>Penarikan kabel fiber optik single-mode antar dua gedung.</li>
+<li>Terminasi dan pengujian link untuk memastikan koneksi low-loss dan stabil.</li>
+</ul>
+<h3 id="konfigurasi-perangkat-jaringan" class="mb-3">
+  <a href="#konfigurasi-perangkat-jaringan" class="text-decoration-none text-dark">
+    Konfigurasi Perangkat Jaringan
+  </a>
+</h3>
+
+<ul>
+<li>Pemasangan switch untuk klien kabel dan UniFi Access Point.</li>
+<li>Verifikasi konektivitas jaringan dan komunikasi antar perangkat.</li>
+</ul>
+<h2 id="tools--teknologi" class="mb-3">
+  <a href="#tools--teknologi" class="text-decoration-none text-dark">
+    Tools &amp; Teknologi
+  </a>
+</h2>
+
+<ul>
+<li><strong>Fiber Optik Single-Mode (SM FO)</strong></li>
+<li><strong>Home Terminal Box (HTB)</strong></li>
+<li><strong>Box Panel</strong></li>
+<li><strong>Switch Jaringan</strong></li>
+<li>Kabel Ethernet untuk perangkat klien</li>
+</ul>
+<h2 id="analisis-jaringan" class="mb-3">
+  <a href="#analisis-jaringan" class="text-decoration-none text-dark">
+    Analisis Jaringan
+  </a>
+</h2>
+
+<ul>
+<li><strong>Keandalan:</strong> PTP FO memberikan koneksi berkecepatan tinggi dan stabil antar gedung.</li>
+<li><strong>Skalabilitas:</strong> Desain jaringan mendukung penambahan perangkat di masa depan.</li>
+<li><strong>Efisiensi Operasional:</strong> Penataan kabel dan terminasi yang rapi mempermudah troubleshooting.</li>
+</ul>
+<h2 id="hasil-akhir" class="mb-3">
+  <a href="#hasil-akhir" class="text-decoration-none text-dark">
+    Hasil Akhir
+  </a>
+</h2>
+
+<ul>
+<li>Berhasil membangun <strong>jaringan PTP FO</strong> antara Server Gedung Timur dan Ruang Staff Gedung Barat.</li>
+<li>Menghasilkan <strong>koneksi jaringan yang stabil dan andal</strong> untuk PC, laptop, dan Access Point.</li>
+<li>Menunjukkan pengalaman langsung dalam <strong>deployment fiber optik dan jaringan antar gedung</strong>.</li>
+</ul>
+
+        </article>
+
+
+<div class="tag-widget post-tag-container mb-5 mt-5">
+  <div class="tagcloud">
+    
+      <a href="/tags/project/" class="tag-cloud-link">Project</a>
+    
+      <a href="/tags/networking/" class="tag-cloud-link">Networking</a>
+    
+      <a href="/tags/fiber-optic/" class="tag-cloud-link">Fiber-Optic</a>
+    
+  </div>
+</div>
+
+
+      </div>
+
+      
+      <div class="col-lg-4 sidebar ftco-animate">
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Recent Blog</h3>
+          
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/samba-file-server-on-linux-secure-file-sharing.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-samba-server-di-linux-untuk-berbagi-file-dengan-aman/">Konfigurasi Samba Server di Linux untuk Berbagi File dengan Aman</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/samba-syntax/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/samba-syntax/samba-configuration-explained-syntax.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/samba-syntax/">Penjelasan Lengkap Konfigurasi Samba: Sintaks smb.conf</a>
+      </h3>
+      <div class="meta">
+        <span>26 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/01-configure-mikrotik-policy-based-routing-separating-internet-traffic.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/mikrotik-policy-based-routing-memisahkan-traffic-internet/">MikroTik Policy Based Routing: Memisahkan Traffic Internet</a>
+      </h3>
+      <div class="meta">
+        <span>23 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/cara-install-apache2-di-debian/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/cara-install-apache2-di-debian/how-to-install-apache2-on-debian.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/cara-install-apache2-di-debian/">Cara Install Apache2 di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>20 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+  
+    
+  
+
+  <div class="block-21 mb-4 d-flex">
+    
+      <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">
+        <div class="blog-img mr-4"
+             style="background-image: url('/id/blog/konfigurasi-http-reverse-proxy-apache2/reverse-proxy-apache2.jpg');">
+        </div>
+      </a>
+    
+
+    <div class="text">
+      <h3 class="heading">
+        <a href="/id/blog/konfigurasi-http-reverse-proxy-apache2/">Konfigurasi Apache Reverse Proxy di Debian 12</a>
+      </h3>
+      <div class="meta">
+        <span>18 Jan 2026</span>
+         | By Rosyid Majid
+      </div>
+    </div>
+  </div>
+
+
+
+
+        </div>
+
+        
+        <div class="sidebar-box ftco-animate">
+          <h3 class="heading-sidebar">Tag</h3>
+          <div class="tagcloud">
+            
+              <a href="/id/tags/apache/" class="tag-cloud-link">
+                Apache
+              </a>
+            
+              <a href="/id/tags/event/" class="tag-cloud-link">
+                Event
+              </a>
+            
+              <a href="/id/tags/fiber-optic/" class="tag-cloud-link">
+                Fiber-Optic
+              </a>
+            
+              <a href="/id/tags/linux/" class="tag-cloud-link">
+                Linux
+              </a>
+            
+              <a href="/id/tags/mikrotik/" class="tag-cloud-link">
+                Mikrotik
+              </a>
+            
+              <a href="/id/tags/networking/" class="tag-cloud-link">
+                Networking
+              </a>
+            
+              <a href="/id/tags/pbr-mikrotik/" class="tag-cloud-link">
+                PBR-MikroTik
+              </a>
+            
+              <a href="/id/tags/project/" class="tag-cloud-link">
+                Project
+              </a>
+            
+              <a href="/id/tags/reverse_proxy/" class="tag-cloud-link">
+                Reverse_Proxy
+              </a>
+            
+              <a href="/id/tags/routing/" class="tag-cloud-link">
+                Routing
+              </a>
+            
+              <a href="/id/tags/ruijie/" class="tag-cloud-link">
+                Ruijie
+              </a>
+            
+              <a href="/id/tags/samba/" class="tag-cloud-link">
+                Samba
+              </a>
+            
+              <a href="/id/tags/server/" class="tag-cloud-link">
+                Server
+              </a>
+            
+              <a href="/id/tags/smb/" class="tag-cloud-link">
+                SMB
+              </a>
+            
+              <a href="/id/tags/survey/" class="tag-cloud-link">
+                Survey
+              </a>
+            
+              <a href="/id/tags/sysadmin/" class="tag-cloud-link">
+                Sysadmin
+              </a>
+            
+              <a href="/id/tags/wireless/" class="tag-cloud-link">
+                Wireless
+              </a>
+            
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="ftco-footer ftco-section">
+  <div class="container">
+    <div class="row mb-5">
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Tentang Saya</h2>
+          <p>IT Networking Support &amp; Junior NOC Engineer dengan pengalaman langsung dalam deployment infrastruktur dan operasional sistem.</p>
+
+          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+            <li class="ftco-animate">
+              <a href="https://www.facebook.com/people/Rosyid-Majid/pfbid02YVNFBmRDRqeQAToVZ3nGJZxNoMBiQr6fo16VAc6eqAh7tLM9gwhRgQbutjvfQdf9l/">
+                <span class="fa-brands fa-facebook-f"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.instagram.com/rosyidmajid45/">
+                <span class="fa-brands fa-instagram"></span>
+              </a>
+            </li>
+            <li class="ftco-animate">
+              <a href="https://www.linkedin.com/in/rosyid-majid-678833198">
+                <span class="fa-brands fa-linkedin-in"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4 ml-md-4">
+          <h2 class="ftco-heading-2">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="/id/#home-section">
+                <span class="icon-long-arrow-right mr-2"></span>Beranda
+              </a>
+            </li>
+            <li>
+              <a href="/id/#about-section">
+                <span class="icon-long-arrow-right mr-2"></span>Tentang
+              </a>
+            </li>
+            <li>
+              <a href="/id/#projects-section">
+                <span class="icon-long-arrow-right mr-2"></span>Proyek
+              </a>
+            </li>
+            <li>
+              <a href="/id/blog/">
+                <span class="icon-long-arrow-right mr-2"></span>Blog
+              </a>
+            </li>
+            <li>
+              <a href="/id/tools/">
+                <span class="icon-long-arrow-right mr-2"></span>Tools
+              </a>
+            </li>
+            <li>
+              <a href="/id/#contact-section">
+                <span class="icon-long-arrow-right mr-2"></span>Kontak
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="col-md">
+        <div class="ftco-footer-widget mb-4">
+          <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
+          <div class="block-23 mb-3">
+            <ul>
+              <li>
+                <span class="icon icon-map-marker"></span>
+                <span class="text">Wonosobo, Jawa Tengah, Indonesia</span>
+              </li>
+              <li>
+                <a href="tel:+6282231185610">
+                  <span class="icon icon-phone"></span>
+                  <span class="text">+62 822-3118-5610</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rosyidmjd@gmail.com">
+                  <span class="icon icon-envelope"></span>
+                  <span class="text">rosyidmjd@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p>
+          © <script>document.write(new Date().getFullYear());</script>
+          Rosyid Majid · All rights reserved<br>
+          IT Networking Support &amp; Junior NOC Engineer
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/aos.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/scrollax.min.js"></script>
+  
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
+
+
+</body>
+</html>
