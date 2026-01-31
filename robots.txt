@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://rosyidmjd.my.id/sitemap.xml
+
